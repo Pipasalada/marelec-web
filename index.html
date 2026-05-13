@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Marelec - Instalaciones eléctricas, energía fotovoltaica, cargadores para vehículos eléctricos y automatización inteligente.">
+    <title>Marelec - Instalaciones Eléctricas & Energía</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --azul: #1a3a8f;
+            --azul-claro: #2a52c9;
+            --negro: #111111;
+            --gris: #f4f6fb;
+            --texto: #333;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            color: var(--texto);
+            line-height: 1.6;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: rgba(255,255,255,0.97);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 6%;
+            height: 70px;
+            box-shadow: 0 1px 20px rgba(0,0,0,0.08);
+            z-index: 1000;
+        }
+
+        .logo-nav {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-nav img {
+            height: 44px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--negro);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--azul); }
+
+        .nav-cta {
+            background: var(--azul);
+            color: white !important;
+            padding: 8px 20px;
+            border-radius: 6px;
+            transition: background 0.2s !important;
+        }
+
+        .nav-cta:hover { background: var(--azul-claro) !important; color: white !important; }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0d1f5c 0%, #1a3a8f 50%, #0a0a0a 100%);
+            display: flex;
+            align-items: center;
+            padding: 100px 6% 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(42,82,201,0.3) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            max-width: 650px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            color: white;
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span { color: #7eb3ff; }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 36px;
+            max-width: 520px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--azul);
+            padding: 14px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            border: 2px solid rgba(255,255,255,0.5);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .btn-secondary:hover {
+            border-color: white;
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* STATS BAR */
+        .stats-bar {
+            background: var(--negro);
+            padding: 30px 6%;
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+            color: white;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #7eb3ff;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.6);
+            margin-top: 4px;
+        }
+
+        /* SERVICIOS */
+        .section {
+            padding: 80px 6%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 56px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: rgba(26,58,143,0.1);
+            color: var(--azul);
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 14px;
+        }
+
+        .section-header h2 {
+            font-size: clamp(1.6rem, 3vw, 2.4rem);
+            color: var(--negro);
+            font-weight: 700;
+        }
+
+        .section-header p {
+            color: #666;
+            margin-top: 12px;
+            max-width: 540px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: white;
+            border: 1px solid #e8ecf4;
+            border-radius: 16px;
+            padding: 32px 28px;
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(26,58,143,0.12);
+            border-color: var(--azul);
+        }
+
+        .service-icon {
+            font-size: 2.2rem;
+            margin-bottom: 18px;
+        }
+
+        .service-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--negro);
+            margin-bottom: 10px;
+        }
+
+        .service-card p {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* CARGADORES HIGHLIGHT */
+        .highlight-section {
+            background: var(--gris);
+        }
+
+        .highlight-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .highlight-text h2 {
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            color: var(--negro);
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .highlight-text p {
+            color: #555;
+            margin-bottom: 24px;
+            font-size: 1rem;
+        }
+
+        .highlight-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .highlight-list li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+            color: var(--texto);
+        }
+
+        .highlight-list li::before {
+            content: '✓';
+            background: var(--azul);
+            color: white;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .highlight-visual {
+            background: linear-gradient(135deg, var(--azul), #0d1f5c);
+            border-radius: 20px;
+            padding: 50px;
+            text-align: center;
+            color: white;
+        }
+
+        .highlight-visual .big-icon { font-size: 5rem; margin-bottom: 20px; }
+        .highlight-visual h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 10px; }
+        .highlight-visual p { opacity: 0.8; font-size: 0.9rem; }
+
+        /* CONTACTO */
+        .contact-section {
+            background: linear-gradient(135deg, #0d1f5c, #1a3a8f);
+            padding: 80px 6%;
+            text-align: center;
+        }
+
+        .contact-section h2 {
+            font-size: clamp(1.6rem, 3vw, 2.4rem);
+            color: white;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        .contact-section p {
+            color: rgba(255,255,255,0.75);
+            font-size: 1rem;
+            margin-bottom: 40px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact-grid {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .contact-item {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 12px;
+            padding: 20px 28px;
+            color: white;
+            text-decoration: none;
+            transition: background 0.2s;
+            min-width: 180px;
+        }
+
+        .contact-item:hover { background: rgba(255,255,255,0.2); }
+        .contact-item .c-icon { font-size: 1.5rem; margin-bottom: 8px; }
+        .contact-item .c-label { font-size: 0.75rem; opacity: 0.7; text-transform: uppercase; letter-spacing: 0.05em; }
+        .contact-item .c-value { font-size: 0.95rem; font-weight: 600; margin-top: 4px; }
+
+        /* FOOTER */
+        footer {
+            background: var(--negro);
+            padding: 30px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        footer p { color: rgba(255,255,255,0.4); font-size: 0.85rem; }
+        footer a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 0.85rem; }
+        footer a:hover { color: white; }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .highlight-inner { grid-template-columns: 1fr; }
+            .stats-bar { gap: 30px; }
+            .hero { padding-top: 90px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+    <div class="logo-nav">
+        <!-- Sustituye src por la ruta real de tu logo cuando lo tengas en PNG -->
+        <span style="font-size:1.5rem;font-weight:800;color:#1a3a8f;letter-spacing:-0.02em;">MARELEC</span>
+    </div>
+    <ul class="nav-links">
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#cargadores">Cargadores VE</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+        <li><a href="#contacto" class="nav-cta">Solicitar presupuesto</a></li>
+    </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-badge">⚡ Instaladores certificados</div>
+        <h1>Energía inteligente para tu <span>hogar y empresa</span></h1>
+        <p>Instalaciones eléctricas, energía fotovoltaica, cargadores para vehículos eléctricos y automatización inteligente. Todo en una empresa.</p>
+        <div class="hero-buttons">
+            <a href="#contacto" class="btn-primary">Solicitar presupuesto</a>
+            <a href="#servicios" class="btn-secondary">Ver servicios</a>
+        </div>
+    </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+    <div class="stat">
+        <div class="stat-number">+200</div>
+        <div class="stat-label">Instalaciones realizadas</div>
+    </div>
+    <div class="stat">
+        <div class="stat-number">15+</div>
+        <div class="stat-label">Años de experiencia</div>
+    </div>
+    <div class="stat">
+        <div class="stat-number">100%</div>
+        <div class="stat-label">Proyectos garantizados</div>
+    </div>
+    <div class="stat">
+        <div class="stat-number">24h</div>
+        <div class="stat-label">Respuesta a urgencias</div>
+    </div>
+</div>
+
+<!-- SERVICIOS -->
+<section class="section" id="servicios">
+    <div class="section-header">
+        <div class="section-tag">Nuestros servicios</div>
+        <h2>Soluciones eléctricas completas</h2>
+        <p>Desde la instalación convencional hasta la automatización con inteligencia artificial.</p>
+    </div>
+    <div class="services-grid">
+        <div class="service-card">
+            <div class="service-icon">🔌</div>
+            <h3>Instalaciones Eléctricas</h3>
+            <p>Instalaciones eléctricas generales para viviendas, locales comerciales e industria. Proyectos llave en mano con todas las homologaciones.</p>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">☀️</div>
+            <h3>Energía Fotovoltaica</h3>
+            <p>Diseño e instalación de sistemas de autoconsumo solar. Gestión de subvenciones y trámites administrativos incluidos.</p>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">🚗</div>
+            <h3>Cargadores Vehículo Eléctrico</h3>
+            <p>Instalación de puntos de recarga domésticos y profesionales. Instaladores certificados para las principales marcas del mercado.</p>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">🏠</div>
+            <h3>Domótica e Automatización</h3>
+            <p>Sistemas inteligentes con Home Assistant, Loxone y soluciones a medida. Control total de tu hogar o negocio desde cualquier dispositivo.</p>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">🤖</div>
+            <h3>Integración con IA</h3>
+            <p>Automatización avanzada con inteligencia artificial para optimizar el consumo energético y la gestión de instalaciones.</p>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">🔧</div>
+            <h3>Mantenimiento</h3>
+            <p>Contratos de mantenimiento preventivo y correctivo. Respuesta rápida ante cualquier incidencia eléctrica o de automatización.</p>
+        </div>
+    </div>
+</section>
+
+<!-- CARGADORES HIGHLIGHT -->
+<section class="section highlight-section" id="cargadores">
+    <div class="highlight-inner">
+        <div class="highlight-text">
+            <div class="section-tag">Movilidad eléctrica</div>
+            <h2>Instala tu cargador con garantías</h2>
+            <p>Somos instaladores especializados en puntos de recarga para vehículo eléctrico, tanto para particulares como para empresas y flotas.</p>
+            <ul class="highlight-list">
+                <li>Instalación en garaje privado, comunidad o empresa</li>
+                <li>Compatible con todas las marcas (Wallbox, ABB, Schneider…)</li>
+                <li>Gestión de subvenciones Plan MOVES</li>
+                <li>Certificación y legalización incluida</li>
+                <li>Mantenimiento y soporte post-instalación</li>
+            </ul>
+            <a href="#contacto" class="btn-primary" style="display:inline-block;background:var(--azul);color:white;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:600;">Solicitar instalación</a>
+        </div>
+        <div class="highlight-visual">
+            <div class="big-icon">⚡</div>
+            <h3>¿Tienes coche eléctrico?</h3>
+            <p>Carga en casa de forma segura, rápida y con la instalación legalizada. Te asesoramos sin compromiso.</p>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="contact-section" id="contacto">
+    <h2>Hablemos de tu proyecto</h2>
+    <p>Solicita un presupuesto sin compromiso. Respondemos en menos de 24 horas.</p>
+    <div class="contact-grid">
+        <a href="mailto:info@marelec.net" class="contact-item">
+            <div class="c-icon">✉️</div>
+            <div class="c-label">Email</div>
+            <div class="c-value">info@marelec.net</div>
+        </a>
+        <a href="tel:+34000000000" class="contact-item">
+            <div class="c-icon">📞</div>
+            <div class="c-label">Teléfono</div>
+            <div class="c-value">+34 000 000 000</div>
+        </a>
+        <div class="contact-item">
+            <div class="c-icon">📍</div>
+            <div class="c-label">Zona de servicio</div>
+            <div class="c-value">Galicia · España</div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <p>© 2026 Marelec · Todos los derechos reservados</p>
+    <p><a href="mailto:info@marelec.net">info@marelec.net</a></p>
+</footer>
+
+</body>
+</html>
