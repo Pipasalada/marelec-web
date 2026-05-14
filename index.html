@@ -4,753 +4,943 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Marelec - Instalaciones eléctricas, energía fotovoltaica, cargadores para vehículos eléctricos y automatización inteligente.">
-    <title>Marelec - Instalaciones Eléctricas & Energía</title>
+    <title>Marelec — Energía inteligente</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
             --azul: #1a3a8f;
-            --azul-claro: #2a52c9;
+            --azul-mid: #2a52c9;
             --azul-bright: #4a7fff;
-            --negro: #0a0a0a;
-            --gris: #f4f6fb;
-            --texto: #333;
+            --negro: #0c0c0c;
+            --blanco: #ffffff;
+            --gris-claro: #f7f7f7;
+            --gris-medio: #e8e8e8;
+            --texto: #1a1a1a;
+            --texto-suave: #666;
         }
 
         html { scroll-behavior: smooth; }
-
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
             color: var(--texto);
-            line-height: 1.6;
             overflow-x: hidden;
         }
 
-        /* NAV */
+        /* ─── NAV ─── */
         nav {
             position: fixed;
             top: 0; left: 0; right: 0;
-            background: rgba(5, 10, 30, 0.92);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            height: 68px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 0 6%;
-            height: 72px;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(255,255,255,0.07);
+            justify-content: space-between;
+            padding: 0 5%;
+            z-index: 999;
+            transition: background 0.3s, box-shadow 0.3s;
         }
-
-        .logo-nav img {
-            height: 48px;
-            filter: brightness(1.1);
+        nav.scrolled {
+            background: rgba(12,12,12,0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 1px 0 rgba(255,255,255,0.06);
         }
-
+        .logo-nav img { height: 42px; }
+        .logo-nav .logo-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white;
+            letter-spacing: 0.06em;
+        }
         .nav-links {
             display: flex;
-            gap: 36px;
             list-style: none;
+            gap: 40px;
             align-items: center;
         }
-
         .nav-links a {
+            color: rgba(255,255,255,0.8);
             text-decoration: none;
-            color: rgba(255,255,255,0.75);
-            font-size: 0.88rem;
+            font-size: 0.87rem;
             font-weight: 500;
-            letter-spacing: 0.02em;
             transition: color 0.2s;
         }
-
         .nav-links a:hover { color: white; }
-
         .nav-cta {
-            background: var(--azul-claro) !important;
-            color: white !important;
-            padding: 9px 22px !important;
-            border-radius: 7px;
-            font-weight: 600 !important;
-            transition: background 0.2s, transform 0.2s !important;
+            background: white !important;
+            color: var(--negro) !important;
+            padding: 10px 24px !important;
+            border-radius: 6px;
+            font-weight: 700 !important;
+            font-size: 0.85rem !important;
+            transition: opacity 0.2s !important;
         }
+        .nav-cta:hover { opacity: 0.85 !important; }
 
-        .nav-cta:hover {
-            background: var(--azul-bright) !important;
-            transform: translateY(-1px);
-        }
-
-        /* HERO */
+        /* ─── HERO FULL ─── */
         .hero {
-            min-height: 100vh;
-            background:
-                radial-gradient(ellipse 80% 60% at 70% 40%, rgba(42,82,201,0.25) 0%, transparent 60%),
-                radial-gradient(ellipse 60% 50% at 20% 70%, rgba(26,58,143,0.2) 0%, transparent 60%),
-                linear-gradient(160deg, #050a1e 0%, #0a1535 40%, #060c20 100%);
+            height: 100vh;
+            min-height: 600px;
+            background: var(--negro);
             display: flex;
-            align-items: center;
-            padding: 100px 6% 80px;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 0 5% 80px;
             position: relative;
             overflow: hidden;
         }
 
-        /* Animated grid lines */
-        .hero::before {
-            content: '';
+        /* Imagen de fondo placeholder — reemplazar por foto real */
+        .hero-bg {
             position: absolute;
             inset: 0;
-            background-image:
-                linear-gradient(rgba(74,127,255,0.06) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(74,127,255,0.06) 1px, transparent 1px);
-            background-size: 60px 60px;
-            mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+            background:
+                linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.65) 70%, rgba(0,0,0,0.9) 100%),
+                linear-gradient(135deg, #0a1020 0%, #0d1a3a 50%, #050810 100%);
+            z-index: 0;
         }
 
-        /* Glow orbs */
-        .hero::after {
-            content: '';
+        /* Subtle animated dots grid */
+        .hero-grid {
             position: absolute;
-            top: 15%;
-            right: 8%;
-            width: 420px;
-            height: 420px;
-            background: radial-gradient(circle, rgba(74,127,255,0.18) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
+            inset: 0;
+            background-image: radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px);
+            background-size: 48px 48px;
+            z-index: 0;
+            mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%);
         }
 
         .hero-content {
-            max-width: 680px;
             position: relative;
             z-index: 1;
+            max-width: 900px;
         }
 
-        .hero-badge {
-            display: inline-flex;
+        .hero-eyebrow {
+            display: flex;
             align-items: center;
-            gap: 8px;
-            background: rgba(74,127,255,0.12);
-            border: 1px solid rgba(74,127,255,0.35);
-            color: #a0c0ff;
-            padding: 7px 18px;
-            border-radius: 30px;
-            font-size: 0.78rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            font-weight: 600;
-            margin-bottom: 28px;
+            gap: 12px;
+            margin-bottom: 24px;
         }
 
-        .hero-badge::before { content: '⚡'; font-size: 0.9rem; }
+        .hero-eyebrow span {
+            color: rgba(255,255,255,0.45);
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+        }
+
+        .eyebrow-line {
+            width: 32px;
+            height: 1px;
+            background: rgba(255,255,255,0.3);
+        }
 
         .hero h1 {
-            font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+            font-size: clamp(2.8rem, 6vw, 5.5rem);
             color: white;
             font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 22px;
-            letter-spacing: -0.02em;
+            line-height: 1.02;
+            letter-spacing: -0.03em;
+            margin-bottom: 28px;
         }
 
-        .hero h1 .highlight {
-            background: linear-gradient(135deg, #7eb3ff, #4a7fff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .hero h1 em {
+            font-style: normal;
+            color: rgba(255,255,255,0.4);
         }
 
-        .hero h1 .line2 {
-            display: block;
+        .hero-sub {
+            font-size: clamp(1rem, 1.5vw, 1.15rem);
             color: rgba(255,255,255,0.55);
-            font-size: 0.72em;
-            font-weight: 400;
-            margin-top: 6px;
-            letter-spacing: 0;
-        }
-
-        .hero p {
-            font-size: 1.05rem;
-            color: rgba(255,255,255,0.65);
-            margin-bottom: 40px;
             max-width: 520px;
-            line-height: 1.7;
+            line-height: 1.65;
+            margin-bottom: 44px;
         }
 
-        .hero-buttons {
+        .hero-actions {
             display: flex;
-            gap: 16px;
+            gap: 14px;
+            align-items: center;
             flex-wrap: wrap;
-            margin-bottom: 56px;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, var(--azul-claro), var(--azul-bright));
-            color: white;
-            padding: 15px 32px;
-            border-radius: 9px;
+        .btn-white {
+            background: white;
+            color: var(--negro);
+            padding: 16px 36px;
+            border-radius: 6px;
             text-decoration: none;
             font-weight: 700;
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 20px rgba(74,127,255,0.35);
         }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 35px rgba(74,127,255,0.5);
-        }
-
-        .btn-secondary {
-            border: 1px solid rgba(255,255,255,0.25);
-            color: rgba(255,255,255,0.85);
-            padding: 15px 32px;
-            border-radius: 9px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: border-color 0.2s, background 0.2s, transform 0.2s;
-            backdrop-filter: blur(4px);
-        }
-
-        .btn-secondary:hover {
-            border-color: rgba(255,255,255,0.6);
-            background: rgba(255,255,255,0.07);
+        .btn-white:hover {
             transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
         }
 
-        /* Trust indicators */
-        .hero-trust {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-            flex-wrap: wrap;
-        }
-
-        .trust-item {
+        .btn-ghost {
+            color: rgba(255,255,255,0.75);
+            text-decoration: none;
+            font-size: 0.92rem;
+            font-weight: 500;
             display: flex;
             align-items: center;
             gap: 8px;
-            color: rgba(255,255,255,0.5);
-            font-size: 0.82rem;
+            transition: color 0.2s;
         }
+        .btn-ghost:hover { color: white; }
+        .btn-ghost::after { content: '→'; transition: transform 0.2s; }
+        .btn-ghost:hover::after { transform: translateX(4px); }
 
-        .trust-item .dot {
-            width: 6px;
-            height: 6px;
-            background: #4a7fff;
-            border-radius: 50%;
-            flex-shrink: 0;
-        }
-
-        /* STATS BAR */
-        .stats-bar {
-            background: #08102a;
-            border-top: 1px solid rgba(255,255,255,0.06);
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-            padding: 36px 6%;
-            display: flex;
-            justify-content: center;
-            gap: 0;
-        }
-
-        .stat {
-            text-align: center;
-            color: white;
-            padding: 0 48px;
-            position: relative;
-        }
-
-        .stat:not(:last-child)::after {
-            content: '';
-            position: absolute;
-            right: 0;
-            top: 10%;
-            height: 80%;
-            width: 1px;
-            background: rgba(255,255,255,0.08);
-        }
-
-        .stat-number {
-            font-size: 2.4rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #7eb3ff, #4a7fff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1;
-        }
-
-        .stat-label {
-            font-size: 0.8rem;
-            color: rgba(255,255,255,0.45);
-            margin-top: 6px;
-            letter-spacing: 0.03em;
-        }
-
-        /* SERVICIOS */
-        .section {
-            padding: 96px 6%;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 64px;
-        }
-
-        .section-tag {
-            display: inline-block;
-            background: rgba(26,58,143,0.1);
-            color: var(--azul-claro);
-            padding: 5px 16px;
-            border-radius: 20px;
-            font-size: 0.78rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-bottom: 14px;
-            border: 1px solid rgba(26,58,143,0.2);
-        }
-
-        .section-header h2 {
-            font-size: clamp(1.8rem, 3vw, 2.6rem);
-            color: #0d1535;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-        }
-
-        .section-header p {
-            color: #777;
-            margin-top: 14px;
-            max-width: 520px;
-            margin-left: auto;
-            margin-right: auto;
-            font-size: 1rem;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .service-card {
+        /* ─── STRIP DE SERVICIOS ─── */
+        .services-strip {
             background: white;
-            border: 1px solid #e8ecf4;
-            border-radius: 18px;
-            padding: 36px 30px;
-            transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
-            position: relative;
-            overflow: hidden;
+            border-bottom: 1px solid var(--gris-medio);
+            padding: 0 5%;
+            display: flex;
+            overflow-x: auto;
+            scrollbar-width: none;
         }
+        .services-strip::-webkit-scrollbar { display: none; }
 
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--azul), var(--azul-bright));
-            opacity: 0;
-            transition: opacity 0.25s;
-        }
-
-        .service-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 50px rgba(26,58,143,0.12);
-            border-color: rgba(26,58,143,0.15);
-        }
-
-        .service-card:hover::before { opacity: 1; }
-
-        .service-icon {
-            font-size: 2.4rem;
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        .service-card h3 {
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: #0d1535;
-            margin-bottom: 10px;
-        }
-
-        .service-card p {
+        .strip-item {
+            padding: 28px 0;
+            margin-right: 56px;
+            white-space: nowrap;
+            color: var(--texto-suave);
             font-size: 0.88rem;
-            color: #777;
-            line-height: 1.65;
+            font-weight: 500;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: color 0.2s, border-color 0.2s;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .strip-item:hover, .strip-item.active {
+            color: var(--negro);
+            border-bottom-color: var(--negro);
         }
 
-        /* CARGADORES HIGHLIGHT */
-        .highlight-section {
-            background: linear-gradient(180deg, #f4f6fb 0%, #eef1f9 100%);
-        }
-
-        .highlight-inner {
-            max-width: 1160px;
-            margin: 0 auto;
+        /* ─── SECCIÓN GRANDE CON TEXTO ─── */
+        .big-section {
+            padding: 120px 5%;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 72px;
+            gap: 80px;
             align-items: center;
+            max-width: 1300px;
+            margin: 0 auto;
         }
 
-        .highlight-text .section-tag { text-align: left; }
+        .big-section.reverse { direction: rtl; }
+        .big-section.reverse > * { direction: ltr; }
+        .big-section.dark-bg { background: var(--negro); max-width: none; padding-left: 5%; padding-right: 5%; }
+        .big-section.dark-bg .section-label { color: rgba(255,255,255,0.35); }
+        .big-section.dark-bg h2 { color: white; }
+        .big-section.dark-bg p { color: rgba(255,255,255,0.55); }
 
-        .highlight-text h2 {
-            font-size: clamp(1.7rem, 3vw, 2.4rem);
-            color: #0d1535;
+        .section-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--texto-suave);
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-label::before {
+            content: '';
+            width: 24px;
+            height: 1px;
+            background: currentColor;
+        }
+
+        h2.display {
+            font-size: clamp(2rem, 3.5vw, 3.2rem);
             font-weight: 800;
-            margin-bottom: 16px;
-            letter-spacing: -0.02em;
+            line-height: 1.08;
+            letter-spacing: -0.025em;
+            color: var(--negro);
+            margin-bottom: 22px;
         }
 
-        .highlight-text p {
-            color: #666;
-            margin-bottom: 28px;
-            font-size: 0.98rem;
-            line-height: 1.7;
+        .section-desc {
+            font-size: 1rem;
+            color: var(--texto-suave);
+            line-height: 1.75;
+            margin-bottom: 36px;
         }
 
-        .highlight-list {
+        .feature-list {
             list-style: none;
             display: flex;
             flex-direction: column;
             gap: 14px;
-            margin-bottom: 36px;
+            margin-bottom: 40px;
         }
-
-        .highlight-list li {
+        .feature-list li {
             display: flex;
-            align-items: center;
-            gap: 12px;
+            align-items: flex-start;
+            gap: 14px;
             font-size: 0.93rem;
-            color: #444;
+            color: var(--texto);
+            line-height: 1.5;
         }
-
-        .check {
-            background: linear-gradient(135deg, var(--azul), var(--azul-bright));
-            color: white;
-            width: 24px;
-            height: 24px;
+        .feature-list li .icon-dot {
+            width: 20px;
+            height: 20px;
+            background: var(--negro);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.7rem;
-            font-weight: 800;
             flex-shrink: 0;
+            margin-top: 2px;
         }
+        .dark-bg .feature-list li { color: rgba(255,255,255,0.7); }
+        .dark-bg .feature-list .icon-dot { background: white; }
 
-        .highlight-visual {
-            background: linear-gradient(145deg, #0a1535 0%, #1a3a8f 60%, #0d2060 100%);
-            border-radius: 24px;
-            padding: 56px 44px;
-            text-align: center;
+        .icon-dot svg {
+            width: 10px;
+            height: 10px;
+            stroke: white;
+            stroke-width: 3;
+            fill: none;
+        }
+        .dark-bg .icon-dot svg { stroke: var(--negro); }
+
+        .btn-dark {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--negro);
             color: white;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 30px 80px rgba(26,58,143,0.35);
-        }
-
-        .highlight-visual::before {
-            content: '';
-            position: absolute;
-            top: -40%;
-            left: -20%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 60% 30%, rgba(74,127,255,0.2) 0%, transparent 50%);
-        }
-
-        .highlight-visual .big-icon {
-            font-size: 5.5rem;
-            margin-bottom: 20px;
-            display: block;
-            position: relative;
-        }
-
-        .highlight-visual h3 {
-            font-size: 1.4rem;
-            font-weight: 800;
-            margin-bottom: 12px;
-            position: relative;
-        }
-
-        .highlight-visual p {
-            opacity: 0.7;
-            font-size: 0.9rem;
-            line-height: 1.6;
-            position: relative;
-        }
-
-        .highlight-visual .btn-ev {
-            display: inline-block;
-            margin-top: 28px;
-            background: white;
-            color: var(--azul);
-            padding: 13px 28px;
-            border-radius: 9px;
+            padding: 15px 32px;
+            border-radius: 6px;
             text-decoration: none;
             font-weight: 700;
             font-size: 0.9rem;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+        .btn-dark:hover { opacity: 0.8; transform: translateY(-2px); }
+        .btn-dark::after { content: '→'; }
+
+        .btn-light {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            color: var(--negro);
+            padding: 15px 32px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+        .btn-light:hover { opacity: 0.85; transform: translateY(-2px); }
+        .btn-light::after { content: '→'; }
+
+        /* Visual placeholder */
+        .visual-box {
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            background: linear-gradient(135deg, #e8ecf4, #d0d8ee);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             position: relative;
         }
-
-        .highlight-visual .btn-ev:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        .visual-box.dark {
+            background: linear-gradient(135deg, #1a2a50, #0d1535);
         }
-
-        /* CONTACTO */
-        .contact-section {
-            background:
-                radial-gradient(ellipse 70% 60% at 30% 50%, rgba(42,82,201,0.2) 0%, transparent 60%),
-                linear-gradient(135deg, #060c20, #0d1a45, #060c20);
-            padding: 100px 6%;
+        .visual-placeholder {
             text-align: center;
-            position: relative;
+            color: rgba(255,255,255,0.25);
+            font-size: 0.78rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        .visual-box:not(.dark) .visual-placeholder { color: rgba(0,0,0,0.2); }
+        .visual-big-text {
+            font-size: 7rem;
+            line-height: 1;
+            display: block;
+            margin-bottom: 8px;
+            opacity: 0.15;
+        }
+
+        /* ─── GRID 3 COLUMNAS ─── */
+        .grid-section {
+            padding: 100px 5%;
+            background: var(--gris-claro);
+        }
+        .grid-section-header {
+            margin-bottom: 64px;
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            background: var(--gris-medio);
+            border: 1px solid var(--gris-medio);
+            border-radius: 16px;
             overflow: hidden;
         }
-
-        .contact-section::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(74,127,255,0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(74,127,255,0.05) 1px, transparent 1px);
-            background-size: 50px 50px;
+        .service-tile {
+            background: white;
+            padding: 44px 36px;
+            transition: background 0.2s;
+            cursor: default;
+        }
+        .service-tile:hover { background: #fafafa; }
+        .tile-number {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: rgba(0,0,0,0.2);
+            letter-spacing: 0.1em;
+            margin-bottom: 28px;
+        }
+        .tile-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--negro);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .tile-icon svg {
+            width: 22px;
+            height: 22px;
+            stroke: white;
+            fill: none;
+            stroke-width: 1.8;
+        }
+        .service-tile h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--negro);
+            margin-bottom: 10px;
+            letter-spacing: -0.01em;
+        }
+        .service-tile p {
+            font-size: 0.86rem;
+            color: var(--texto-suave);
+            line-height: 1.65;
         }
 
-        .contact-section h2 {
-            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-            color: white;
-            font-weight: 800;
-            margin-bottom: 14px;
-            letter-spacing: -0.02em;
-            position: relative;
-        }
-
-        .contact-section > p {
-            color: rgba(255,255,255,0.6);
-            font-size: 1rem;
-            margin-bottom: 52px;
-            max-width: 480px;
-            margin-left: auto;
-            margin-right: auto;
-            position: relative;
-        }
-
-        .contact-grid {
+        /* ─── STATS ─── */
+        .stats-section {
+            background: var(--negro);
+            padding: 80px 5%;
             display: flex;
             justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-bottom: 48px;
-            position: relative;
         }
-
-        .contact-item {
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 16px;
-            padding: 28px 36px;
+        .stats-inner {
+            display: flex;
+            gap: 0;
+            width: 100%;
+            max-width: 960px;
+        }
+        .stat-item {
+            flex: 1;
+            text-align: center;
+            padding: 0 32px;
+            border-right: 1px solid rgba(255,255,255,0.08);
+        }
+        .stat-item:last-child { border-right: none; }
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
             color: white;
+            letter-spacing: -0.03em;
+            line-height: 1;
+        }
+        .stat-label {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.35);
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 500;
+        }
+
+        /* ─── CONTACTO ─── */
+        .contact-section {
+            padding: 120px 5%;
+            background: white;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        .contact-left h2 { margin-bottom: 16px; }
+        .contact-left p {
+            color: var(--texto-suave);
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 44px;
+        }
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .contact-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
             text-decoration: none;
-            transition: background 0.2s, transform 0.2s, border-color 0.2s;
-            min-width: 190px;
-            backdrop-filter: blur(8px);
+            color: var(--negro);
+            transition: opacity 0.2s;
         }
-
-        .contact-item:hover {
-            background: rgba(255,255,255,0.12);
-            border-color: rgba(74,127,255,0.4);
-            transform: translateY(-3px);
+        .contact-row:hover { opacity: 0.6; }
+        .contact-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--gris-claro);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
         }
+        .contact-icon svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--negro);
+            fill: none;
+            stroke-width: 1.8;
+        }
+        .contact-info-label {
+            font-size: 0.72rem;
+            color: var(--texto-suave);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 600;
+        }
+        .contact-info-value {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--negro);
+            margin-top: 2px;
+        }
+        .contact-right {
+            background: var(--gris-claro);
+            border-radius: 16px;
+            padding: 48px 44px;
+        }
+        .contact-right h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .contact-right p {
+            color: var(--texto-suave);
+            font-size: 0.9rem;
+            margin-bottom: 28px;
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--texto-suave);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 7px;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 13px 16px;
+            background: white;
+            border: 1px solid var(--gris-medio);
+            border-radius: 8px;
+            font-size: 0.92rem;
+            color: var(--negro);
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--azul);
+        }
+        .form-group textarea { resize: vertical; min-height: 100px; }
+        .form-submit {
+            width: 100%;
+            padding: 15px;
+            background: var(--negro);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.92rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: opacity 0.2s;
+            font-family: inherit;
+        }
+        .form-submit:hover { opacity: 0.8; }
 
-        .contact-item .c-icon { font-size: 1.8rem; margin-bottom: 10px; display: block; }
-        .contact-item .c-label { font-size: 0.72rem; opacity: 0.5; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
-        .contact-item .c-value { font-size: 0.98rem; font-weight: 700; margin-top: 5px; }
-
-        /* FOOTER */
+        /* ─── FOOTER ─── */
         footer {
-            background: #040810;
-            padding: 28px 6%;
+            background: var(--negro);
+            padding: 48px 5% 32px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 32px;
+        }
+        .footer-logo img { height: 36px; }
+        .footer-logo .logo-text-footer {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: white;
+            letter-spacing: 0.06em;
+        }
+        .footer-tagline {
+            color: rgba(255,255,255,0.3);
+            font-size: 0.82rem;
+            margin-top: 8px;
+        }
+        .footer-links {
+            display: flex;
+            gap: 36px;
+            list-style: none;
+        }
+        .footer-links a {
+            color: rgba(255,255,255,0.4);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover { color: white; }
+        .footer-bottom {
+            padding-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.06);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
-            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        .footer-bottom p {
+            color: rgba(255,255,255,0.2);
+            font-size: 0.78rem;
         }
 
-        .footer-logo img { height: 32px; opacity: 0.7; }
-        .footer-logo span { color: rgba(255,255,255,0.3); font-size: 0.8rem; margin-left: 16px; }
-        footer a { color: rgba(255,255,255,0.35); text-decoration: none; font-size: 0.82rem; }
-        footer a:hover { color: rgba(255,255,255,0.7); }
-
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 900px) {
             .nav-links { display: none; }
-            .highlight-inner { grid-template-columns: 1fr; gap: 40px; }
-            .stats-bar { gap: 0; flex-wrap: wrap; }
-            .stat { padding: 16px 24px; }
-            .stat:not(:last-child)::after { display: none; }
-            .hero { padding-top: 90px; }
+            .big-section { grid-template-columns: 1fr; gap: 48px; padding: 72px 5%; }
+            .big-section.reverse { direction: ltr; }
+            .services-grid { grid-template-columns: 1fr; }
+            .contact-section { grid-template-columns: 1fr; gap: 48px; padding: 72px 5%; }
+            .stats-inner { flex-wrap: wrap; }
+            .stat-item { flex: 1 1 40%; border-right: none; padding: 16px; }
+            .hero h1 { font-size: clamp(2.2rem, 8vw, 3.5rem); }
         }
     </style>
 </head>
 <body>
 
 <!-- NAV -->
-<nav>
+<nav id="mainNav">
     <div class="logo-nav">
-        <img src="logo.png" alt="Marelec" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-        <span style="display:none; font-size:1.4rem; font-weight:800; color:white; letter-spacing:0.05em;">MARELEC</span>
+        <img src="/logo.png" alt="Marelec" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <span class="logo-text" style="display:none">MARELEC</span>
     </div>
     <ul class="nav-links">
         <li><a href="#servicios">Servicios</a></li>
         <li><a href="#cargadores">Cargadores EV</a></li>
-        <li><a href="#contacto">Contacto</a></li>
+        <li><a href="#automatizacion">Automatización</a></li>
         <li><a href="#contacto" class="nav-cta">Solicitar presupuesto</a></li>
     </ul>
 </nav>
 
+<script>
+    window.addEventListener('scroll', () => {
+        document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 40);
+    });
+</script>
+
 <!-- HERO -->
 <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
     <div class="hero-content">
-        <div class="hero-badge">Instaladores certificados · España</div>
-        <h1>
-            Energía inteligente,<br>
-            <span class="highlight">instalaciones que duran.</span>
-            <span class="line2">Electricidad · Fotovoltaica · Movilidad eléctrica · Automatización</span>
-        </h1>
-        <p>De la instalación convencional a la automatización con inteligencia artificial. Marelec es tu empresa de confianza para proyectos eléctricos y energéticos completos.</p>
-        <div class="hero-buttons">
-            <a href="#contacto" class="btn-primary">Solicitar presupuesto gratuito</a>
-            <a href="#servicios" class="btn-secondary">Ver servicios →</a>
+        <div class="hero-eyebrow">
+            <span class="eyebrow-line"></span>
+            <span>Instaladores certificados · España</span>
         </div>
-        <div class="hero-trust">
-            <div class="trust-item"><span class="dot"></span>Proyectos llave en mano</div>
-            <div class="trust-item"><span class="dot"></span>Gestión de subvenciones</div>
-            <div class="trust-item"><span class="dot"></span>Garantía total</div>
+        <h1>Energía que<br>trabaja por ti.<br><em>Todo incluido.</em></h1>
+        <p class="hero-sub">Instalaciones eléctricas, fotovoltaica, cargadores para vehículo eléctrico y automatización inteligente. Un solo equipo para todo el proyecto.</p>
+        <div class="hero-actions">
+            <a href="#contacto" class="btn-white">Solicitar presupuesto</a>
+            <a href="#servicios" class="btn-ghost">Ver servicios</a>
+        </div>
+    </div>
+</section>
+
+<!-- STRIP -->
+<div class="services-strip">
+    <a href="#servicios" class="strip-item active">Instalaciones eléctricas</a>
+    <a href="#servicios" class="strip-item">Energía fotovoltaica</a>
+    <a href="#cargadores" class="strip-item">Cargadores VE</a>
+    <a href="#automatizacion" class="strip-item">Domótica & IA</a>
+    <a href="#servicios" class="strip-item">Mantenimiento</a>
+</div>
+
+<!-- SECCIÓN CARGADORES -->
+<section style="background: white;" id="cargadores">
+    <div class="big-section">
+        <div>
+            <div class="section-label">Movilidad eléctrica</div>
+            <h2 class="display">Carga en casa.<br>Sin complicaciones.</h2>
+            <p class="section-desc">Somos especialistas en instalación de puntos de recarga para vehículo eléctrico. Trabajamos con todas las marcas, gestionamos las subvenciones del Plan MOVES y nos encargamos de toda la legalización.</p>
+            <ul class="feature-list">
+                <li>
+                    <span class="icon-dot"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
+                    Garajes privados, comunidades y empresas con flota
+                </li>
+                <li>
+                    <span class="icon-dot"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
+                    Wallbox, ABB, Schneider, Zaptec y todas las marcas
+                </li>
+                <li>
+                    <span class="icon-dot"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
+                    Gestión completa de subvenciones Plan MOVES
+                </li>
+                <li>
+                    <span class="icon-dot"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
+                    Certificación, legalización y mantenimiento
+                </li>
+            </ul>
+            <a href="#contacto" class="btn-dark">Pedir asesoramiento</a>
+        </div>
+        <div class="visual-box">
+            <div class="visual-placeholder">
+                <span class="visual-big-text">⚡</span>
+                Añade aquí una foto<br>de instalación real
+            </div>
         </div>
     </div>
 </section>
 
 <!-- STATS -->
-<div class="stats-bar">
-    <div class="stat">
-        <div class="stat-number">+200</div>
-        <div class="stat-label">Instalaciones realizadas</div>
-    </div>
-    <div class="stat">
-        <div class="stat-number">15+</div>
-        <div class="stat-label">Años de experiencia</div>
-    </div>
-    <div class="stat">
-        <div class="stat-number">100%</div>
-        <div class="stat-label">Proyectos garantizados</div>
-    </div>
-    <div class="stat">
-        <div class="stat-number">24h</div>
-        <div class="stat-label">Respuesta a urgencias</div>
+<div class="stats-section">
+    <div class="stats-inner">
+        <div class="stat-item">
+            <div class="stat-number">+200</div>
+            <div class="stat-label">Instalaciones</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">15+</div>
+            <div class="stat-label">Años de experiencia</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Proyectos garantizados</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">24h</div>
+            <div class="stat-label">Respuesta urgencias</div>
+        </div>
     </div>
 </div>
 
-<!-- SERVICIOS -->
-<section class="section" id="servicios">
-    <div class="section-header">
-        <div class="section-tag">Nuestros servicios</div>
-        <h2>Soluciones eléctricas completas</h2>
-        <p>Desde la instalación convencional hasta la automatización con inteligencia artificial.</p>
-    </div>
-    <div class="services-grid">
-        <div class="service-card">
-            <span class="service-icon">🔌</span>
-            <h3>Instalaciones Eléctricas</h3>
-            <p>Instalaciones generales para viviendas, locales comerciales e industria. Proyectos llave en mano con todas las homologaciones.</p>
+<!-- SECCIÓN FOTOVOLTAICA -->
+<section style="background: var(--negro);" id="servicios">
+    <div class="big-section reverse dark-bg" style="max-width:none; margin:0; padding: 120px 5%;">
+        <div>
+            <div class="section-label">Energía solar</div>
+            <h2 class="display" style="color:white;">Produce tu propia<br>energía. Ahorra<br>desde el día 1.</h2>
+            <p class="section-desc" style="color:rgba(255,255,255,0.5);">Diseñamos e instalamos sistemas de autoconsumo fotovoltaico para viviendas y empresas. Nos encargamos de todo: desde el proyecto técnico hasta los trámites con la distribuidora y las subvenciones.</p>
+            <ul class="feature-list">
+                <li>
+                    <span class="icon-dot" style="background:white;"><svg viewBox="0 0 12 12" style="stroke:#0c0c0c"><polyline points="2,6 5,9 10,3"/></svg></span>
+                    <span style="color:rgba(255,255,255,0.7);">Diseño personalizado según consumo real</span>
+                </li>
+                <li>
+                    <span class="icon-dot" style="background:white;"><svg viewBox="0 0 12 12" style="stroke:#0c0c0c"><polyline points="2,6 5,9 10,3"/></svg></span>
+                    <span style="color:rgba(255,255,255,0.7);">Gestión de subvenciones y tramitación completa</span>
+                </li>
+                <li>
+                    <span class="icon-dot" style="background:white;"><svg viewBox="0 0 12 12" style="stroke:#0c0c0c"><polyline points="2,6 5,9 10,3"/></svg></span>
+                    <span style="color:rgba(255,255,255,0.7);">Integración con batería y cargador VE</span>
+                </li>
+            </ul>
+            <a href="#contacto" class="btn-light">Solicitar estudio gratuito</a>
         </div>
-        <div class="service-card">
-            <span class="service-icon">☀️</span>
-            <h3>Energía Fotovoltaica</h3>
-            <p>Diseño e instalación de sistemas de autoconsumo solar. Gestión de subvenciones y trámites administrativos incluidos.</p>
-        </div>
-        <div class="service-card">
-            <span class="service-icon">🚗</span>
-            <h3>Cargadores Vehículo Eléctrico</h3>
-            <p>Instalación de puntos de recarga domésticos y profesionales. Instaladores certificados para las principales marcas del mercado.</p>
-        </div>
-        <div class="service-card">
-            <span class="service-icon">🏠</span>
-            <h3>Domótica e Automatización</h3>
-            <p>Sistemas inteligentes con Home Assistant y Loxone. Control total de tu hogar o negocio desde cualquier dispositivo.</p>
-        </div>
-        <div class="service-card">
-            <span class="service-icon">🤖</span>
-            <h3>Integración con IA</h3>
-            <p>Automatización avanzada con inteligencia artificial para optimizar el consumo energético y la gestión de instalaciones.</p>
-        </div>
-        <div class="service-card">
-            <span class="service-icon">🔧</span>
-            <h3>Mantenimiento</h3>
-            <p>Contratos de mantenimiento preventivo y correctivo. Respuesta rápida ante cualquier incidencia eléctrica o de automatización.</p>
+        <div class="visual-box dark">
+            <div class="visual-placeholder">
+                <span class="visual-big-text">☀️</span>
+                Añade aquí una foto<br>de instalación solar
+            </div>
         </div>
     </div>
 </section>
 
-<!-- CARGADORES HIGHLIGHT -->
-<section class="section highlight-section" id="cargadores">
-    <div class="highlight-inner">
-        <div class="highlight-text">
-            <div class="section-tag">Movilidad eléctrica</div>
-            <h2>Instala tu cargador con todas las garantías</h2>
-            <p>Somos especialistas en puntos de recarga para vehículo eléctrico. Instalamos en garajes privados, comunidades de vecinos y empresas con flotas eléctricas.</p>
-            <ul class="highlight-list">
-                <li><span class="check">✓</span> Instalación en garaje privado, comunidad o empresa</li>
-                <li><span class="check">✓</span> Compatible con todas las marcas (Wallbox, ABB, Schneider…)</li>
-                <li><span class="check">✓</span> Gestión de subvenciones Plan MOVES</li>
-                <li><span class="check">✓</span> Certificación y legalización incluida</li>
-                <li><span class="check">✓</span> Mantenimiento y soporte post-instalación</li>
-            </ul>
-            <a href="#contacto" class="btn-primary">Solicitar instalación</a>
+<!-- GRID SERVICIOS -->
+<section class="grid-section" id="automatizacion">
+    <div class="grid-section-header">
+        <div class="section-label">Todo lo que hacemos</div>
+        <h2 class="display">Un equipo para<br>cada proyecto.</h2>
+    </div>
+    <div class="services-grid">
+        <div class="service-tile">
+            <div class="tile-number">01</div>
+            <div class="tile-icon">
+                <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <h3>Instalaciones Eléctricas</h3>
+            <p>Proyectos eléctricos generales para viviendas, locales e industria. Llave en mano con todas las homologaciones.</p>
         </div>
-        <div class="highlight-visual">
-            <span class="big-icon">⚡</span>
-            <h3>¿Tienes coche eléctrico?</h3>
-            <p>Carga en casa de forma segura, rápida y con la instalación completamente legalizada. Te asesoramos sin compromiso.</p>
-            <a href="#contacto" class="btn-ev">Pedir asesoramiento gratis</a>
+        <div class="service-tile">
+            <div class="tile-number">02</div>
+            <div class="tile-icon">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
+            </div>
+            <h3>Energía Fotovoltaica</h3>
+            <p>Autoconsumo solar con gestión de subvenciones. Recupera la inversión en menos de 5 años.</p>
+        </div>
+        <div class="service-tile">
+            <div class="tile-number">03</div>
+            <div class="tile-icon">
+                <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+            </div>
+            <h3>Cargadores Vehículo Eléctrico</h3>
+            <p>Instalación certificada de wallbox para hogar, comunidades y empresas. Plan MOVES gestionado.</p>
+        </div>
+        <div class="service-tile">
+            <div class="tile-number">04</div>
+            <div class="tile-icon">
+                <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <h3>Domótica</h3>
+            <p>Sistemas inteligentes con Home Assistant y Loxone. Control total desde cualquier dispositivo.</p>
+        </div>
+        <div class="service-tile">
+            <div class="tile-number">05</div>
+            <div class="tile-icon">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+            </div>
+            <h3>Integración con IA</h3>
+            <p>Automatización avanzada con inteligencia artificial para optimizar consumo y gestión de instalaciones.</p>
+        </div>
+        <div class="service-tile">
+            <div class="tile-number">06</div>
+            <div class="tile-icon">
+                <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+            </div>
+            <h3>Mantenimiento</h3>
+            <p>Contratos preventivos y correctivos. Respuesta en 24h ante cualquier incidencia.</p>
         </div>
     </div>
 </section>
 
 <!-- CONTACTO -->
-<section class="contact-section" id="contacto">
-    <h2>Hablemos de tu proyecto</h2>
-    <p>Solicita un presupuesto sin compromiso. Respondemos en menos de 24 horas.</p>
-    <div class="contact-grid">
-        <a href="mailto:info@marelec.net" class="contact-item">
-            <span class="c-icon">✉️</span>
-            <div class="c-label">Email</div>
-            <div class="c-value">info@marelec.net</div>
-        </a>
-        <a href="tel:+34637077878" class="contact-item">
-            <span class="c-icon">📞</span>
-            <div class="c-label">Teléfono</div>
-            <div class="c-value">+34 637 07 78 78</div>
-        </a>
+<section id="contacto" style="background:white; padding: 0;">
+    <div class="contact-section">
+        <div class="contact-left">
+            <div class="section-label">Contacto</div>
+            <h2 class="display">Cuéntanos<br>tu proyecto.</h2>
+            <p>Respondemos en menos de 24 horas. Sin compromiso, sin letra pequeña.</p>
+            <div class="contact-details">
+                <a href="tel:+34637077878" class="contact-row">
+                    <div class="contact-icon">
+                        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.29 6.29l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    </div>
+                    <div>
+                        <div class="contact-info-label">Teléfono</div>
+                        <div class="contact-info-value">+34 637 07 78 78</div>
+                    </div>
+                </a>
+                <a href="mailto:info@marelec.net" class="contact-row">
+                    <div class="contact-icon">
+                        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    </div>
+                    <div>
+                        <div class="contact-info-label">Email</div>
+                        <div class="contact-info-value">info@marelec.net</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="contact-right">
+            <h3>Solicitar presupuesto</h3>
+            <p>Rellena el formulario y te contactamos en menos de 24h.</p>
+            <form onsubmit="event.preventDefault(); alert('Mensaje enviado. Te contactamos en breve.');">
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" placeholder="Tu nombre" required>
+                </div>
+                <div class="form-group">
+                    <label>Teléfono</label>
+                    <input type="tel" placeholder="+34 600 000 000">
+                </div>
+                <div class="form-group">
+                    <label>Servicio de interés</label>
+                    <select>
+                        <option>Instalación eléctrica</option>
+                        <option>Energía fotovoltaica</option>
+                        <option>Cargador vehículo eléctrico</option>
+                        <option>Domótica / Automatización</option>
+                        <option>Mantenimiento</option>
+                        <option>Otro</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Mensaje</label>
+                    <textarea placeholder="Cuéntanos brevemente tu proyecto..."></textarea>
+                </div>
+                <button type="submit" class="form-submit">Enviar solicitud →</button>
+            </form>
+        </div>
     </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-    <div class="footer-logo">
-        <img src="logo.png" alt="Marelec" onerror="this.style.display='none'">
-        <span>© 2026 Marelec · Todos los derechos reservados</span>
+    <div class="footer-top">
+        <div>
+            <div class="footer-logo">
+                <img src="/logo.png" alt="Marelec" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                <span class="logo-text-footer" style="display:none">MARELEC</span>
+            </div>
+            <p class="footer-tagline">Instalaciones eléctricas · Fotovoltaica · Cargadores EV · Automatización</p>
+        </div>
+        <ul class="footer-links">
+            <li><a href="#servicios">Servicios</a></li>
+            <li><a href="#cargadores">Cargadores EV</a></li>
+            <li><a href="#automatizacion">Automatización</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
     </div>
-    <a href="mailto:info@marelec.net">info@marelec.net</a>
+    <div class="footer-bottom">
+        <p>© 2026 Marelec · Todos los derechos reservados</p>
+        <a href="mailto:info@marelec.net" style="color:rgba(255,255,255,0.2);text-decoration:none;font-size:0.78rem;">info@marelec.net</a>
+    </div>
 </footer>
 
 </body>
