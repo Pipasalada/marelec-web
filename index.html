@@ -7,7 +7,6 @@
     <title>Marelec — Energía inteligente</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         :root {
             --azul: #1a3a8f;
             --azul-mid: #2a52c9;
@@ -19,646 +18,238 @@
             --texto: #1a1a1a;
             --texto-suave: #666;
         }
-
         html { scroll-behavior: smooth; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
-            color: var(--texto);
-            overflow-x: hidden;
-        }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif; color: var(--texto); overflow-x: hidden; }
 
-        /* ─── NAV ─── */
+        /* NAV */
         nav {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            height: 68px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 5%;
-            z-index: 999;
-            transition: background 0.3s, box-shadow 0.3s;
+            position: fixed; top: 0; left: 0; right: 0; height: 68px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 5%; z-index: 999; transition: background 0.3s, box-shadow 0.3s;
         }
-        nav.scrolled {
-            background: rgba(12,12,12,0.95);
-            backdrop-filter: blur(20px);
-            box-shadow: 0 1px 0 rgba(255,255,255,0.06);
-        }
+        nav.scrolled { background: rgba(12,12,12,0.96); backdrop-filter: blur(20px); box-shadow: 0 1px 0 rgba(255,255,255,0.06); }
         .logo-nav img { height: 42px; }
-        .logo-nav .logo-text {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: white;
-            letter-spacing: 0.06em;
-        }
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 40px;
-            align-items: center;
-        }
-        .nav-links a {
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            font-size: 0.87rem;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
+        .logo-nav .logo-text { font-size: 1.5rem; font-weight: 800; color: white; letter-spacing: 0.06em; }
+        .nav-links { display: flex; list-style: none; gap: 36px; align-items: center; }
+        .nav-links a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.85rem; font-weight: 500; transition: color 0.2s; }
         .nav-links a:hover { color: white; }
-        .nav-cta {
-            background: white !important;
-            color: var(--negro) !important;
-            padding: 10px 24px !important;
-            border-radius: 6px;
-            font-weight: 700 !important;
-            font-size: 0.85rem !important;
-            transition: opacity 0.2s !important;
-        }
+        .nav-cta { background: white !important; color: var(--negro) !important; padding: 9px 22px !important; border-radius: 6px; font-weight: 700 !important; }
         .nav-cta:hover { opacity: 0.85 !important; }
 
-        /* ─── HERO FULL ─── */
+        /* HERO — reducido padding top para menos espacio */
         .hero {
-            height: 100vh;
-            min-height: 600px;
+            height: 100vh; min-height: 580px;
             background: var(--negro);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 0 5% 80px;
-            position: relative;
-            overflow: hidden;
+            display: flex; flex-direction: column; justify-content: center;
+            padding: 68px 5% 60px;
+            position: relative; overflow: hidden;
         }
-
-        /* Imagen de fondo placeholder — reemplazar por foto real */
         .hero-bg {
-            position: absolute;
-            inset: 0;
-            background:
-                linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.65) 70%, rgba(0,0,0,0.9) 100%),
-                linear-gradient(135deg, #0a1020 0%, #0d1a3a 50%, #050810 100%);
+            position: absolute; inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,0.92) 100%),
+                        linear-gradient(135deg, #0a1020 0%, #0d1a3a 50%, #050810 100%);
             z-index: 0;
         }
-
-        /* Subtle animated dots grid */
         .hero-grid {
-            position: absolute;
-            inset: 0;
-            background-image: radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px);
-            background-size: 48px 48px;
-            z-index: 0;
-            mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%);
+            position: absolute; inset: 0;
+            background-image: radial-gradient(rgba(255,255,255,0.07) 1px, transparent 1px);
+            background-size: 48px 48px; z-index: 0;
+            mask-image: linear-gradient(to bottom, transparent 0%, black 25%, black 75%, transparent 100%);
         }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            max-width: 900px;
-        }
-
-        .hero-eyebrow {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 24px;
-        }
-
-        .hero-eyebrow span {
-            color: rgba(255,255,255,0.45);
-            font-size: 0.78rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-        }
-
-        .eyebrow-line {
-            width: 32px;
-            height: 1px;
-            background: rgba(255,255,255,0.3);
-        }
-
-        .hero h1 {
-            font-size: clamp(2.8rem, 6vw, 5.5rem);
-            color: white;
-            font-weight: 800;
-            line-height: 1.02;
-            letter-spacing: -0.03em;
-            margin-bottom: 28px;
-        }
-
-        .hero h1 em {
-            font-style: normal;
-            color: rgba(255,255,255,0.4);
-        }
-
-        .hero-sub {
-            font-size: clamp(1rem, 1.5vw, 1.15rem);
-            color: rgba(255,255,255,0.55);
-            max-width: 520px;
-            line-height: 1.65;
-            margin-bottom: 44px;
-        }
-
-        .hero-actions {
-            display: flex;
-            gap: 14px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .btn-white {
-            background: white;
-            color: var(--negro);
-            padding: 16px 36px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.92rem;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .btn-white:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
-        }
-
-        .btn-ghost {
-            color: rgba(255,255,255,0.75);
-            text-decoration: none;
-            font-size: 0.92rem;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: color 0.2s;
-        }
+        .hero-content { position: relative; z-index: 1; max-width: 900px; }
+        .hero-eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+        .hero-eyebrow span { color: rgba(255,255,255,0.4); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; }
+        .eyebrow-line { width: 28px; height: 1px; background: rgba(255,255,255,0.25); }
+        .hero h1 { font-size: clamp(2.8rem, 6vw, 5.5rem); color: white; font-weight: 800; line-height: 1.02; letter-spacing: -0.03em; margin-bottom: 22px; }
+        .hero h1 em { font-style: normal; color: rgba(255,255,255,0.38); }
+        .hero-sub { font-size: clamp(0.95rem, 1.5vw, 1.1rem); color: rgba(255,255,255,0.52); max-width: 500px; line-height: 1.65; margin-bottom: 38px; }
+        .hero-actions { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-bottom: 44px; }
+        .btn-white { background: white; color: var(--negro); padding: 15px 34px; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: transform 0.2s, box-shadow 0.2s; }
+        .btn-white:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,0.3); }
+        .btn-ghost { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.9rem; font-weight: 500; display: flex; align-items: center; gap: 8px; transition: color 0.2s; }
         .btn-ghost:hover { color: white; }
         .btn-ghost::after { content: '→'; transition: transform 0.2s; }
         .btn-ghost:hover::after { transform: translateX(4px); }
+        .hero-trust { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+        .trust-item { display: flex; align-items: center; gap: 8px; color: rgba(255,255,255,0.4); font-size: 0.8rem; }
+        .trust-item .dot { width: 5px; height: 5px; background: rgba(255,255,255,0.3); border-radius: 50%; flex-shrink: 0; }
 
-        /* ─── STRIP DE SERVICIOS ─── */
-        .services-strip {
-            background: white;
-            border-bottom: 1px solid var(--gris-medio);
-            padding: 0 5%;
-            display: flex;
-            overflow-x: auto;
-            scrollbar-width: none;
-        }
+        /* STRIP */
+        .services-strip { background: white; border-bottom: 1px solid var(--gris-medio); padding: 0 5%; display: flex; overflow-x: auto; scrollbar-width: none; }
         .services-strip::-webkit-scrollbar { display: none; }
+        .strip-item { padding: 26px 0; margin-right: 52px; white-space: nowrap; color: var(--texto-suave); font-size: 0.86rem; font-weight: 500; border-bottom: 2px solid transparent; transition: color 0.2s, border-color 0.2s; text-decoration: none; }
+        .strip-item:hover, .strip-item.active { color: var(--negro); border-bottom-color: var(--negro); }
 
-        .strip-item {
-            padding: 28px 0;
-            margin-right: 56px;
-            white-space: nowrap;
-            color: var(--texto-suave);
-            font-size: 0.88rem;
-            font-weight: 500;
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
-            transition: color 0.2s, border-color 0.2s;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .strip-item:hover, .strip-item.active {
-            color: var(--negro);
-            border-bottom-color: var(--negro);
-        }
-
-        /* ─── SECCIÓN GRANDE CON TEXTO ─── */
-        .big-section {
-            padding: 120px 5%;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: center;
-            max-width: 1300px;
-            margin: 0 auto;
-        }
-
+        /* SECCIONES */
+        .big-section { padding: 110px 5%; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; max-width: 1300px; margin: 0 auto; }
         .big-section.reverse { direction: rtl; }
         .big-section.reverse > * { direction: ltr; }
-        .big-section.dark-bg { background: var(--negro); max-width: none; padding-left: 5%; padding-right: 5%; }
-        .big-section.dark-bg .section-label { color: rgba(255,255,255,0.35); }
-        .big-section.dark-bg h2 { color: white; }
-        .big-section.dark-bg p { color: rgba(255,255,255,0.55); }
-
-        .section-label {
-            font-size: 0.72rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--texto-suave);
-            margin-bottom: 18px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .section-label::before {
-            content: '';
-            width: 24px;
-            height: 1px;
-            background: currentColor;
-        }
-
-        h2.display {
-            font-size: clamp(2rem, 3.5vw, 3.2rem);
-            font-weight: 800;
-            line-height: 1.08;
-            letter-spacing: -0.025em;
-            color: var(--negro);
-            margin-bottom: 22px;
-        }
-
-        .section-desc {
-            font-size: 1rem;
-            color: var(--texto-suave);
-            line-height: 1.75;
-            margin-bottom: 36px;
-        }
-
-        .feature-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            margin-bottom: 40px;
-        }
-        .feature-list li {
-            display: flex;
-            align-items: flex-start;
-            gap: 14px;
-            font-size: 0.93rem;
-            color: var(--texto);
-            line-height: 1.5;
-        }
-        .feature-list li .icon-dot {
-            width: 20px;
-            height: 20px;
-            background: var(--negro);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-        .dark-bg .feature-list li { color: rgba(255,255,255,0.7); }
-        .dark-bg .feature-list .icon-dot { background: white; }
-
-        .icon-dot svg {
-            width: 10px;
-            height: 10px;
-            stroke: white;
-            stroke-width: 3;
-            fill: none;
-        }
-        .dark-bg .icon-dot svg { stroke: var(--negro); }
-
-        .btn-dark {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: var(--negro);
-            color: white;
-            padding: 15px 32px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.9rem;
-            transition: opacity 0.2s, transform 0.2s;
-        }
-        .btn-dark:hover { opacity: 0.8; transform: translateY(-2px); }
+        .section-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--texto-suave); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+        .section-label::before { content: ''; width: 22px; height: 1px; background: currentColor; }
+        .section-label.white { color: rgba(255,255,255,0.35); }
+        h2.display { font-size: clamp(1.9rem, 3.2vw, 3rem); font-weight: 800; line-height: 1.08; letter-spacing: -0.025em; color: var(--negro); margin-bottom: 20px; }
+        h2.display.white { color: white; }
+        .section-desc { font-size: 0.97rem; color: var(--texto-suave); line-height: 1.75; margin-bottom: 32px; }
+        .section-desc.white { color: rgba(255,255,255,0.5); }
+        .feature-list { list-style: none; display: flex; flex-direction: column; gap: 13px; margin-bottom: 36px; }
+        .feature-list li { display: flex; align-items: flex-start; gap: 13px; font-size: 0.91rem; color: var(--texto); line-height: 1.5; }
+        .feature-list li.white-text { color: rgba(255,255,255,0.68); }
+        .icon-dot { width: 20px; height: 20px; background: var(--negro); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+        .icon-dot.light { background: white; }
+        .icon-dot svg { width: 10px; height: 10px; stroke: white; stroke-width: 3; fill: none; }
+        .icon-dot.light svg { stroke: var(--negro); }
+        .btn-dark { display: inline-flex; align-items: center; gap: 10px; background: var(--negro); color: white; padding: 14px 30px; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 0.88rem; transition: opacity 0.2s, transform 0.2s; }
         .btn-dark::after { content: '→'; }
-
-        .btn-light {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: white;
-            color: var(--negro);
-            padding: 15px 32px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.9rem;
-            transition: opacity 0.2s, transform 0.2s;
-        }
-        .btn-light:hover { opacity: 0.85; transform: translateY(-2px); }
+        .btn-dark:hover { opacity: 0.78; transform: translateY(-2px); }
+        .btn-light { display: inline-flex; align-items: center; gap: 10px; background: white; color: var(--negro); padding: 14px 30px; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 0.88rem; transition: opacity 0.2s, transform 0.2s; }
         .btn-light::after { content: '→'; }
+        .btn-light:hover { opacity: 0.85; transform: translateY(-2px); }
 
-        /* Visual placeholder */
-        .visual-box {
-            border-radius: 16px;
-            overflow: hidden;
-            aspect-ratio: 4/3;
-            background: linear-gradient(135deg, #e8ecf4, #d0d8ee);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-        .visual-box.dark {
-            background: linear-gradient(135deg, #1a2a50, #0d1535);
-        }
-        .visual-placeholder {
-            text-align: center;
-            color: rgba(255,255,255,0.25);
-            font-size: 0.78rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-        }
-        .visual-box:not(.dark) .visual-placeholder { color: rgba(0,0,0,0.2); }
-        .visual-big-text {
-            font-size: 7rem;
-            line-height: 1;
-            display: block;
-            margin-bottom: 8px;
-            opacity: 0.15;
-        }
+        /* Visual boxes */
+        .visual-box { border-radius: 16px; overflow: hidden; aspect-ratio: 4/3; background: linear-gradient(135deg, #e8ecf4, #d0d8ee); display: flex; align-items: center; justify-content: center; position: relative; }
+        .visual-box.dark { background: linear-gradient(135deg, #1a2a50, #0d1535); }
+        .visual-placeholder { text-align: center; color: rgba(0,0,0,0.18); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; }
+        .visual-box.dark .visual-placeholder { color: rgba(255,255,255,0.15); }
+        .visual-big-text { font-size: 6rem; line-height: 1; display: block; margin-bottom: 8px; opacity: 0.2; }
 
-        /* ─── GRID 3 COLUMNAS ─── */
-        .grid-section {
-            padding: 100px 5%;
-            background: var(--gris-claro);
-        }
-        .grid-section-header {
-            margin-bottom: 64px;
-        }
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2px;
-            background: var(--gris-medio);
-            border: 1px solid var(--gris-medio);
-            border-radius: 16px;
-            overflow: hidden;
-        }
-        .service-tile {
-            background: white;
-            padding: 44px 36px;
-            transition: background 0.2s;
-            cursor: default;
-        }
-        .service-tile:hover { background: #fafafa; }
-        .tile-number {
-            font-size: 0.72rem;
-            font-weight: 700;
-            color: rgba(0,0,0,0.2);
-            letter-spacing: 0.1em;
-            margin-bottom: 28px;
-        }
-        .tile-icon {
-            width: 44px;
-            height: 44px;
-            background: var(--negro);
-            border-radius: 10px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .tile-icon svg {
-            width: 22px;
-            height: 22px;
-            stroke: white;
-            fill: none;
-            stroke-width: 1.8;
-        }
-        .service-tile h3 {
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: var(--negro);
-            margin-bottom: 10px;
-            letter-spacing: -0.01em;
-        }
-        .service-tile p {
-            font-size: 0.86rem;
-            color: var(--texto-suave);
-            line-height: 1.65;
-        }
+        /* DARK SECTION WRAPPER */
+        .dark-wrapper { background: var(--negro); }
+        .dark-wrapper .big-section { max-width: none; margin: 0; padding: 110px 5%; }
 
-        /* ─── STATS ─── */
-        .stats-section {
-            background: var(--negro);
-            padding: 80px 5%;
-            display: flex;
-            justify-content: center;
-        }
-        .stats-inner {
-            display: flex;
-            gap: 0;
-            width: 100%;
-            max-width: 960px;
-        }
-        .stat-item {
-            flex: 1;
-            text-align: center;
-            padding: 0 32px;
-            border-right: 1px solid rgba(255,255,255,0.08);
-        }
+        /* STATS */
+        .stats-section { background: var(--negro); padding: 72px 5%; display: flex; justify-content: center; border-top: 1px solid rgba(255,255,255,0.05); }
+        .stats-inner { display: flex; gap: 0; width: 100%; max-width: 960px; }
+        .stat-item { flex: 1; text-align: center; padding: 0 28px; border-right: 1px solid rgba(255,255,255,0.07); }
         .stat-item:last-child { border-right: none; }
-        .stat-number {
-            font-size: 3rem;
-            font-weight: 800;
-            color: white;
-            letter-spacing: -0.03em;
-            line-height: 1;
+        .stat-number { font-size: 2.8rem; font-weight: 800; color: white; letter-spacing: -0.03em; line-height: 1; }
+        .stat-label { font-size: 0.76rem; color: rgba(255,255,255,0.3); margin-top: 8px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500; }
+
+        /* GRID SERVICIOS */
+        .grid-section { padding: 100px 5%; background: var(--gris-claro); }
+        .grid-section-header { margin-bottom: 56px; }
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--gris-medio); border: 1px solid var(--gris-medio); border-radius: 16px; overflow: hidden; }
+        .service-tile { background: white; padding: 40px 32px; transition: background 0.2s; }
+        .service-tile:hover { background: #fafafa; }
+        .tile-number { font-size: 0.7rem; font-weight: 700; color: rgba(0,0,0,0.18); letter-spacing: 0.1em; margin-bottom: 24px; }
+        .tile-icon { width: 42px; height: 42px; background: var(--negro); border-radius: 9px; margin-bottom: 18px; display: flex; align-items: center; justify-content: center; }
+        .tile-icon svg { width: 20px; height: 20px; stroke: white; fill: none; stroke-width: 1.8; }
+        .service-tile h3 { font-size: 1rem; font-weight: 700; color: var(--negro); margin-bottom: 9px; letter-spacing: -0.01em; }
+        .service-tile p { font-size: 0.84rem; color: var(--texto-suave); line-height: 1.65; }
+
+        /* AUTOMATIZACIÓN — nueva sección "Edificios inteligentes" */
+        .auto-section { background: white; }
+        .auto-section .big-section { max-width: 1300px; }
+
+        /* Logos de tecnologías */
+        .tech-logos {
+            display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 32px;
         }
-        .stat-label {
-            font-size: 0.8rem;
-            color: rgba(255,255,255,0.35);
-            margin-top: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            font-weight: 500;
+        .tech-badge {
+            padding: 6px 14px; border: 1px solid var(--gris-medio); border-radius: 20px;
+            font-size: 0.78rem; font-weight: 600; color: var(--texto-suave);
+            background: var(--gris-claro);
         }
 
-        /* ─── CONTACTO ─── */
-        .contact-section {
-            padding: 120px 5%;
-            background: white;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: center;
-            max-width: 1300px;
-            margin: 0 auto;
+        /* SHOWROOM */
+        .showroom-section {
+            background: var(--negro);
+            padding: 110px 5%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
         }
-        .contact-left h2 { margin-bottom: 16px; }
-        .contact-left p {
-            color: var(--texto-suave);
-            font-size: 1rem;
-            line-height: 1.7;
-            margin-bottom: 44px;
+        .showroom-section::before {
+            content: '';
+            position: absolute; inset: 0;
+            background-image: radial-gradient(rgba(74,127,255,0.08) 1px, transparent 1px);
+            background-size: 40px 40px;
+            mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
         }
-        .contact-details {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        .contact-row {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            text-decoration: none;
-            color: var(--negro);
-            transition: opacity 0.2s;
-        }
-        .contact-row:hover { opacity: 0.6; }
-        .contact-icon {
-            width: 44px;
-            height: 44px;
-            background: var(--gris-claro);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-        .contact-icon svg {
-            width: 18px;
-            height: 18px;
-            stroke: var(--negro);
-            fill: none;
-            stroke-width: 1.8;
-        }
-        .contact-info-label {
-            font-size: 0.72rem;
-            color: var(--texto-suave);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            font-weight: 600;
-        }
-        .contact-info-value {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--negro);
-            margin-top: 2px;
-        }
-        .contact-right {
-            background: var(--gris-claro);
-            border-radius: 16px;
-            padding: 48px 44px;
-        }
-        .contact-right h3 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-        .contact-right p {
-            color: var(--texto-suave);
-            font-size: 0.9rem;
+        .showroom-inner { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+        .showroom-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(74,127,255,0.12); border: 1px solid rgba(74,127,255,0.25);
+            color: #7eb3ff; padding: 6px 18px; border-radius: 30px;
+            font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
             margin-bottom: 28px;
         }
-        .form-group {
-            margin-bottom: 16px;
+        .showroom-badge::before { content: '●'; color: #4a7fff; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        .showroom-section h2 { font-size: clamp(2rem, 4vw, 3.5rem); color: white; font-weight: 800; letter-spacing: -0.025em; line-height: 1.05; margin-bottom: 20px; }
+        .showroom-section p { color: rgba(255,255,255,0.5); font-size: 1rem; line-height: 1.75; margin-bottom: 16px; max-width: 620px; margin-left: auto; margin-right: auto; }
+
+        .showroom-cards {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+            margin: 52px auto 0; max-width: 900px;
         }
-        .form-group label {
-            display: block;
-            font-size: 0.78rem;
-            font-weight: 600;
-            color: var(--texto-suave);
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            margin-bottom: 7px;
+        .showroom-card {
+            background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 14px; padding: 32px 24px; text-align: left;
+            transition: background 0.2s, border-color 0.2s;
         }
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 13px 16px;
-            background: white;
-            border: 1px solid var(--gris-medio);
-            border-radius: 8px;
-            font-size: 0.92rem;
-            color: var(--negro);
-            font-family: inherit;
-            outline: none;
-            transition: border-color 0.2s;
+        .showroom-card:hover { background: rgba(255,255,255,0.07); border-color: rgba(74,127,255,0.3); }
+        .showroom-card-icon { font-size: 1.8rem; margin-bottom: 16px; display: block; }
+        .showroom-card h4 { font-size: 0.95rem; font-weight: 700; color: white; margin-bottom: 8px; }
+        .showroom-card p { font-size: 0.82rem; color: rgba(255,255,255,0.4); line-height: 1.6; margin: 0; }
+        .showroom-coming {
+            display: inline-flex; align-items: center; gap: 10px;
+            margin-top: 48px; padding: 14px 28px;
+            background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 8px; color: rgba(255,255,255,0.5); font-size: 0.88rem;
+            text-decoration: none; transition: background 0.2s;
         }
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            border-color: var(--azul);
+        .showroom-coming:hover { background: rgba(255,255,255,0.1); }
+        .coming-dot {
+            width: 8px; height: 8px; background: #4a7fff; border-radius: 50%;
+            animation: pulse 2s infinite;
         }
-        .form-group textarea { resize: vertical; min-height: 100px; }
-        .form-submit {
-            width: 100%;
-            padding: 15px;
-            background: var(--negro);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 0.92rem;
-            font-weight: 700;
-            cursor: pointer;
-            margin-top: 8px;
-            transition: opacity 0.2s;
-            font-family: inherit;
-        }
+
+        /* CONTACTO */
+        .contact-outer { background: white; }
+        .contact-section { padding: 110px 5%; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; max-width: 1300px; margin: 0 auto; }
+        .contact-left h2 { margin-bottom: 14px; }
+        .contact-left > p { color: var(--texto-suave); font-size: 0.97rem; line-height: 1.7; margin-bottom: 40px; }
+        .contact-details { display: flex; flex-direction: column; gap: 18px; }
+        .contact-row { display: flex; align-items: center; gap: 15px; text-decoration: none; color: var(--negro); transition: opacity 0.2s; }
+        .contact-row:hover { opacity: 0.6; }
+        .contact-icon { width: 42px; height: 42px; background: var(--gris-claro); border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .contact-icon svg { width: 17px; height: 17px; stroke: var(--negro); fill: none; stroke-width: 1.8; }
+        .contact-info-label { font-size: 0.7rem; color: var(--texto-suave); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+        .contact-info-value { font-size: 0.97rem; font-weight: 700; color: var(--negro); margin-top: 2px; }
+        .contact-right { background: var(--gris-claro); border-radius: 16px; padding: 44px 40px; }
+        .contact-right h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 7px; }
+        .contact-right > p { color: var(--texto-suave); font-size: 0.88rem; margin-bottom: 26px; }
+        .form-group { margin-bottom: 14px; }
+        .form-group label { display: block; font-size: 0.72rem; font-weight: 600; color: var(--texto-suave); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px 15px; background: white; border: 1px solid var(--gris-medio); border-radius: 8px; font-size: 0.9rem; color: var(--negro); font-family: inherit; outline: none; transition: border-color 0.2s; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--azul); }
+        .form-group textarea { resize: vertical; min-height: 90px; }
+        .form-submit { width: 100%; padding: 14px; background: var(--negro); color: white; border: none; border-radius: 8px; font-size: 0.9rem; font-weight: 700; cursor: pointer; margin-top: 8px; transition: opacity 0.2s; font-family: inherit; }
         .form-submit:hover { opacity: 0.8; }
 
-        /* ─── FOOTER ─── */
-        footer {
-            background: var(--negro);
-            padding: 48px 5% 32px;
-            border-top: 1px solid rgba(255,255,255,0.06);
-        }
-        .footer-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-            gap: 32px;
-        }
-        .footer-logo img { height: 36px; }
-        .footer-logo .logo-text-footer {
-            font-size: 1.3rem;
-            font-weight: 800;
-            color: white;
-            letter-spacing: 0.06em;
-        }
-        .footer-tagline {
-            color: rgba(255,255,255,0.3);
-            font-size: 0.82rem;
-            margin-top: 8px;
-        }
-        .footer-links {
-            display: flex;
-            gap: 36px;
-            list-style: none;
-        }
-        .footer-links a {
-            color: rgba(255,255,255,0.4);
-            text-decoration: none;
-            font-size: 0.85rem;
-            transition: color 0.2s;
-        }
+        /* FOOTER */
+        footer { background: var(--negro); padding: 44px 5% 28px; border-top: 1px solid rgba(255,255,255,0.05); }
+        .footer-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 36px; flex-wrap: wrap; gap: 28px; }
+        .footer-logo img { height: 34px; }
+        .footer-logo .logo-text-footer { font-size: 1.25rem; font-weight: 800; color: white; letter-spacing: 0.06em; }
+        .footer-tagline { color: rgba(255,255,255,0.25); font-size: 0.8rem; margin-top: 7px; }
+        .footer-links { display: flex; gap: 32px; list-style: none; }
+        .footer-links a { color: rgba(255,255,255,0.35); text-decoration: none; font-size: 0.83rem; transition: color 0.2s; }
         .footer-links a:hover { color: white; }
-        .footer-bottom {
-            padding-top: 24px;
-            border-top: 1px solid rgba(255,255,255,0.06);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .footer-bottom p {
-            color: rgba(255,255,255,0.2);
-            font-size: 0.78rem;
-        }
+        .footer-bottom { padding-top: 22px; border-top: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; }
+        .footer-bottom p { color: rgba(255,255,255,0.18); font-size: 0.76rem; }
 
-        /* ─── RESPONSIVE ─── */
+        /* RESPONSIVE */
         @media (max-width: 900px) {
             .nav-links { display: none; }
-            .big-section { grid-template-columns: 1fr; gap: 48px; padding: 72px 5%; }
+            .big-section { grid-template-columns: 1fr; gap: 44px; padding: 72px 5%; }
             .big-section.reverse { direction: ltr; }
             .services-grid { grid-template-columns: 1fr; }
-            .contact-section { grid-template-columns: 1fr; gap: 48px; padding: 72px 5%; }
+            .showroom-cards { grid-template-columns: 1fr; }
+            .contact-section { grid-template-columns: 1fr; gap: 44px; padding: 72px 5%; }
             .stats-inner { flex-wrap: wrap; }
             .stat-item { flex: 1 1 40%; border-right: none; padding: 16px; }
-            .hero h1 { font-size: clamp(2.2rem, 8vw, 3.5rem); }
         }
     </style>
 </head>
@@ -673,11 +264,11 @@
     <ul class="nav-links">
         <li><a href="#servicios">Servicios</a></li>
         <li><a href="#cargadores">Cargadores EV</a></li>
-        <li><a href="#automatizacion">Automatización</a></li>
+        <li><a href="#automatizacion">Edificios inteligentes</a></li>
+        <li><a href="#showroom">Showroom</a></li>
         <li><a href="#contacto" class="nav-cta">Solicitar presupuesto</a></li>
     </ul>
 </nav>
-
 <script>
     window.addEventListener('scroll', () => {
         document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 40);
@@ -694,10 +285,15 @@
             <span>Instaladores certificados · España</span>
         </div>
         <h1>Energía que<br>trabaja por ti.<br><em>Todo incluido.</em></h1>
-        <p class="hero-sub">Instalaciones eléctricas, fotovoltaica, cargadores para vehículo eléctrico y automatización inteligente. Un solo equipo para todo el proyecto.</p>
+        <p class="hero-sub">Instalaciones eléctricas, fotovoltaica, cargadores para vehículo eléctrico y control inteligente del hogar. Un solo equipo para todo el proyecto.</p>
         <div class="hero-actions">
             <a href="#contacto" class="btn-white">Solicitar presupuesto</a>
             <a href="#servicios" class="btn-ghost">Ver servicios</a>
+        </div>
+        <div class="hero-trust">
+            <div class="trust-item"><span class="dot"></span>Proyectos llave en mano</div>
+            <div class="trust-item"><span class="dot"></span>Gestión de subvenciones</div>
+            <div class="trust-item"><span class="dot"></span>Garantía total</div>
         </div>
     </div>
 </section>
@@ -707,11 +303,12 @@
     <a href="#servicios" class="strip-item active">Instalaciones eléctricas</a>
     <a href="#servicios" class="strip-item">Energía fotovoltaica</a>
     <a href="#cargadores" class="strip-item">Cargadores VE</a>
-    <a href="#automatizacion" class="strip-item">Domótica & IA</a>
+    <a href="#automatizacion" class="strip-item">Edificios inteligentes</a>
+    <a href="#showroom" class="strip-item">Showroom</a>
     <a href="#servicios" class="strip-item">Mantenimiento</a>
 </div>
 
-<!-- SECCIÓN CARGADORES -->
+<!-- CARGADORES -->
 <section style="background: white;" id="cargadores">
     <div class="big-section">
         <div>
@@ -719,29 +316,17 @@
             <h2 class="display">Carga en casa.<br>Sin complicaciones.</h2>
             <p class="section-desc">Somos especialistas en instalación de puntos de recarga para vehículo eléctrico. Trabajamos con todas las marcas, gestionamos las subvenciones del Plan MOVES y nos encargamos de toda la legalización.</p>
             <ul class="feature-list">
-                <li>
-                    <span class="icon-dot"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
-                    Garajes privados, comunidades y empresas con flota
-                </li>
-                <li>
-                    <span class="icon-dot"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
-                    Wallbox, ABB, Schneider, Zaptec y todas las marcas
-                </li>
-                <li>
-                    <span class="icon-dot"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
-                    Gestión completa de subvenciones Plan MOVES
-                </li>
-                <li>
-                    <span class="icon-dot"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
-                    Certificación, legalización y mantenimiento
-                </li>
+                <li><span class="icon-dot"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>Garajes privados, comunidades y empresas con flota</li>
+                <li><span class="icon-dot"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>Wallbox, ABB, Schneider, Zaptec y todas las marcas</li>
+                <li><span class="icon-dot"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>Gestión completa de subvenciones Plan MOVES</li>
+                <li><span class="icon-dot"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>Certificación, legalización y mantenimiento incluido</li>
             </ul>
             <a href="#contacto" class="btn-dark">Pedir asesoramiento</a>
         </div>
         <div class="visual-box">
             <div class="visual-placeholder">
                 <span class="visual-big-text">⚡</span>
-                Añade aquí una foto<br>de instalación real
+                Foto instalación cargador
             </div>
         </div>
     </div>
@@ -750,59 +335,38 @@
 <!-- STATS -->
 <div class="stats-section">
     <div class="stats-inner">
-        <div class="stat-item">
-            <div class="stat-number">+200</div>
-            <div class="stat-label">Instalaciones</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number">15+</div>
-            <div class="stat-label">Años de experiencia</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number">100%</div>
-            <div class="stat-label">Proyectos garantizados</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number">24h</div>
-            <div class="stat-label">Respuesta urgencias</div>
-        </div>
+        <div class="stat-item"><div class="stat-number">+200</div><div class="stat-label">Instalaciones</div></div>
+        <div class="stat-item"><div class="stat-number">15+</div><div class="stat-label">Años de experiencia</div></div>
+        <div class="stat-item"><div class="stat-number">100%</div><div class="stat-label">Proyectos garantizados</div></div>
+        <div class="stat-item"><div class="stat-number">24h</div><div class="stat-label">Respuesta urgencias</div></div>
     </div>
 </div>
 
-<!-- SECCIÓN FOTOVOLTAICA -->
-<section style="background: var(--negro);" id="servicios">
-    <div class="big-section reverse dark-bg" style="max-width:none; margin:0; padding: 120px 5%;">
+<!-- FOTOVOLTAICA -->
+<section class="dark-wrapper" id="servicios">
+    <div class="big-section reverse">
         <div>
-            <div class="section-label">Energía solar</div>
-            <h2 class="display" style="color:white;">Produce tu propia<br>energía. Ahorra<br>desde el día 1.</h2>
-            <p class="section-desc" style="color:rgba(255,255,255,0.5);">Diseñamos e instalamos sistemas de autoconsumo fotovoltaico para viviendas y empresas. Nos encargamos de todo: desde el proyecto técnico hasta los trámites con la distribuidora y las subvenciones.</p>
+            <div class="section-label white">Energía solar</div>
+            <h2 class="display white">Produce tu propia<br>energía. Ahorra<br>desde el día 1.</h2>
+            <p class="section-desc white">Diseñamos e instalamos sistemas de autoconsumo fotovoltaico para viviendas y empresas. Proyecto técnico, tramitación con distribuidora y subvenciones, todo incluido.</p>
             <ul class="feature-list">
-                <li>
-                    <span class="icon-dot" style="background:white;"><svg viewBox="0 0 12 12" style="stroke:#0c0c0c"><polyline points="2,6 5,9 10,3"/></svg></span>
-                    <span style="color:rgba(255,255,255,0.7);">Diseño personalizado según consumo real</span>
-                </li>
-                <li>
-                    <span class="icon-dot" style="background:white;"><svg viewBox="0 0 12 12" style="stroke:#0c0c0c"><polyline points="2,6 5,9 10,3"/></svg></span>
-                    <span style="color:rgba(255,255,255,0.7);">Gestión de subvenciones y tramitación completa</span>
-                </li>
-                <li>
-                    <span class="icon-dot" style="background:white;"><svg viewBox="0 0 12 12" style="stroke:#0c0c0c"><polyline points="2,6 5,9 10,3"/></svg></span>
-                    <span style="color:rgba(255,255,255,0.7);">Integración con batería y cargador VE</span>
-                </li>
+                <li class="white-text"><span class="icon-dot light"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>Diseño personalizado según consumo real</li>
+                <li class="white-text"><span class="icon-dot light"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>Gestión de subvenciones y tramitación completa</li>
+                <li class="white-text"><span class="icon-dot light"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>Integración con batería y cargador VE</li>
             </ul>
             <a href="#contacto" class="btn-light">Solicitar estudio gratuito</a>
         </div>
         <div class="visual-box dark">
             <div class="visual-placeholder">
                 <span class="visual-big-text">☀️</span>
-                Añade aquí una foto<br>de instalación solar
+                Foto instalación solar
             </div>
         </div>
     </div>
 </section>
 
 <!-- GRID SERVICIOS -->
-<section class="grid-section" id="automatizacion">
+<section class="grid-section">
     <div class="grid-section-header">
         <div class="section-label">Todo lo que hacemos</div>
         <h2 class="display">Un equipo para<br>cada proyecto.</h2>
@@ -810,57 +374,112 @@
     <div class="services-grid">
         <div class="service-tile">
             <div class="tile-number">01</div>
-            <div class="tile-icon">
-                <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            </div>
+            <div class="tile-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
             <h3>Instalaciones Eléctricas</h3>
-            <p>Proyectos eléctricos generales para viviendas, locales e industria. Llave en mano con todas las homologaciones.</p>
+            <p>Proyectos generales para viviendas, locales e industria. Llave en mano con todas las homologaciones.</p>
         </div>
         <div class="service-tile">
             <div class="tile-number">02</div>
-            <div class="tile-icon">
-                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
-            </div>
+            <div class="tile-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg></div>
             <h3>Energía Fotovoltaica</h3>
             <p>Autoconsumo solar con gestión de subvenciones. Recupera la inversión en menos de 5 años.</p>
         </div>
         <div class="service-tile">
             <div class="tile-number">03</div>
-            <div class="tile-icon">
-                <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
-            </div>
+            <div class="tile-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></div>
             <h3>Cargadores Vehículo Eléctrico</h3>
             <p>Instalación certificada de wallbox para hogar, comunidades y empresas. Plan MOVES gestionado.</p>
         </div>
         <div class="service-tile">
             <div class="tile-number">04</div>
-            <div class="tile-icon">
-                <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-            </div>
-            <h3>Domótica</h3>
-            <p>Sistemas inteligentes con Home Assistant y Loxone. Control total desde cualquier dispositivo.</p>
+            <div class="tile-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+            <h3>Edificios Inteligentes</h3>
+            <p>Control total de iluminación, clima, seguridad y energía. Loxone, Home Assistant, ABB y Unifi integrados en un solo sistema.</p>
         </div>
         <div class="service-tile">
             <div class="tile-number">05</div>
-            <div class="tile-icon">
-                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
-            </div>
+            <div class="tile-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg></div>
             <h3>Integración con IA</h3>
-            <p>Automatización avanzada con inteligencia artificial para optimizar consumo y gestión de instalaciones.</p>
+            <p>Automatización avanzada con inteligencia artificial para optimizar consumo y gestión de instalaciones en tiempo real.</p>
         </div>
         <div class="service-tile">
             <div class="tile-number">06</div>
-            <div class="tile-icon">
-                <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-            </div>
+            <div class="tile-icon"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
             <h3>Mantenimiento</h3>
-            <p>Contratos preventivos y correctivos. Respuesta en 24h ante cualquier incidencia.</p>
+            <p>Contratos preventivos y correctivos. Respuesta en 24h ante cualquier incidencia eléctrica o de automatización.</p>
         </div>
     </div>
 </section>
 
+<!-- EDIFICIOS INTELIGENTES - Sección detallada -->
+<section class="auto-section" id="automatizacion">
+    <div class="big-section">
+        <div>
+            <div class="section-label">Control inteligente</div>
+            <h2 class="display">Un edificio que<br>te entiende.</h2>
+            <p class="section-desc">No instalamos sistemas aislados. Integramos Loxone, Home Assistant, ABB y Unifi en una sola plataforma que controla luz, clima, seguridad, energía y redes — todo desde una interfaz unificada.</p>
+            <div class="tech-logos">
+                <span class="tech-badge">Loxone</span>
+                <span class="tech-badge">Home Assistant</span>
+                <span class="tech-badge">ABB</span>
+                <span class="tech-badge">Unifi</span>
+                <span class="tech-badge">KNX</span>
+                <span class="tech-badge">Modbus</span>
+                <span class="tech-badge">Z-Wave</span>
+                <span class="tech-badge">Zigbee</span>
+            </div>
+            <ul class="feature-list">
+                <li><span class="icon-dot"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>Control de iluminación, clima y persianas</li>
+                <li><span class="icon-dot"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>Seguridad: cámaras, acceso, alarmas integradas</li>
+                <li><span class="icon-dot"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>Monitorización y optimización del consumo energético</li>
+                <li><span class="icon-dot"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>Compatible con cualquier instalación existente</li>
+            </ul>
+            <a href="#showroom" class="btn-dark">Ver el Showroom</a>
+        </div>
+        <div class="visual-box">
+            <div class="visual-placeholder">
+                <span class="visual-big-text">🏠</span>
+                Foto panel / interfaz<br>de control
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SHOWROOM -->
+<section class="showroom-section" id="showroom">
+    <div class="showroom-inner">
+        <div class="showroom-badge">Próximamente</div>
+        <h2>Showroom Marelec.<br>Tócalo antes de decidir.</h2>
+        <p>Un espacio físico y virtual donde podrás experimentar en primera persona todo lo que puede hacer un edificio inteligente. Desde encender una bombilla hasta gestionar toda la energía de un edificio.</p>
+        <p style="color:rgba(255,255,255,0.35); font-size:0.88rem;">Muy pronto podrás acceder desde esta misma web a una demo en directo — controlar dispositivos reales del showroom, explorar interfaces de Loxone, Home Assistant y Unifi sin instalarte nada.</p>
+
+        <div class="showroom-cards">
+            <div class="showroom-card">
+                <span class="showroom-card-icon">🏗️</span>
+                <h4>Espacio físico</h4>
+                <p>Visita nuestro showroom y experimenta en persona instalaciones reales de todos los sistemas que integramos.</p>
+            </div>
+            <div class="showroom-card">
+                <span class="showroom-card-icon">🖥️</span>
+                <h4>Demo online</h4>
+                <p>Accede desde cualquier dispositivo a interfaces reales de Loxone y Home Assistant conectadas al showroom en directo.</p>
+            </div>
+            <div class="showroom-card">
+                <span class="showroom-card-icon">💡</span>
+                <h4>Control en tiempo real</h4>
+                <p>Controla dispositivos reales del showroom desde el navegador — luces, persianas, clima — sin instalar nada.</p>
+            </div>
+        </div>
+
+        <a href="#contacto" class="showroom-coming">
+            <span class="coming-dot"></span>
+            Avísame cuando esté disponible
+        </a>
+    </div>
+</section>
+
 <!-- CONTACTO -->
-<section id="contacto" style="background:white; padding: 0;">
+<div class="contact-outer" id="contacto">
     <div class="contact-section">
         <div class="contact-left">
             <div class="section-label">Contacto</div>
@@ -868,57 +487,51 @@
             <p>Respondemos en menos de 24 horas. Sin compromiso, sin letra pequeña.</p>
             <div class="contact-details">
                 <a href="tel:+34637077878" class="contact-row">
-                    <div class="contact-icon">
-                        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.29 6.29l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                    </div>
-                    <div>
-                        <div class="contact-info-label">Teléfono</div>
-                        <div class="contact-info-value">+34 637 07 78 78</div>
-                    </div>
+                    <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.29 6.29l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+                    <div><div class="contact-info-label">Teléfono</div><div class="contact-info-value">+34 637 07 78 78</div></div>
                 </a>
                 <a href="mailto:info@marelec.net" class="contact-row">
-                    <div class="contact-icon">
-                        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                    </div>
-                    <div>
-                        <div class="contact-info-label">Email</div>
-                        <div class="contact-info-value">info@marelec.net</div>
-                    </div>
+                    <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+                    <div><div class="contact-info-label">Email</div><div class="contact-info-value">info@marelec.net</div></div>
                 </a>
             </div>
         </div>
         <div class="contact-right">
             <h3>Solicitar presupuesto</h3>
             <p>Rellena el formulario y te contactamos en menos de 24h.</p>
-            <form onsubmit="event.preventDefault(); alert('Mensaje enviado. Te contactamos en breve.');">
+            <form action="https://formspree.io/f/TUCODIGO" method="POST">
                 <div class="form-group">
                     <label>Nombre</label>
-                    <input type="text" placeholder="Tu nombre" required>
+                    <input type="text" name="nombre" placeholder="Tu nombre" required>
                 </div>
                 <div class="form-group">
                     <label>Teléfono</label>
-                    <input type="tel" placeholder="+34 600 000 000">
+                    <input type="tel" name="telefono" placeholder="+34 600 000 000">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" placeholder="tu@email.com" required>
                 </div>
                 <div class="form-group">
                     <label>Servicio de interés</label>
-                    <select>
+                    <select name="servicio">
                         <option>Instalación eléctrica</option>
                         <option>Energía fotovoltaica</option>
                         <option>Cargador vehículo eléctrico</option>
-                        <option>Domótica / Automatización</option>
+                        <option>Edificio inteligente / Automatización</option>
                         <option>Mantenimiento</option>
                         <option>Otro</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label>Mensaje</label>
-                    <textarea placeholder="Cuéntanos brevemente tu proyecto..."></textarea>
+                    <textarea name="mensaje" placeholder="Cuéntanos brevemente tu proyecto..."></textarea>
                 </div>
                 <button type="submit" class="form-submit">Enviar solicitud →</button>
             </form>
         </div>
     </div>
-</section>
+</div>
 
 <!-- FOOTER -->
 <footer>
@@ -928,18 +541,19 @@
                 <img src="/logo.png" alt="Marelec" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
                 <span class="logo-text-footer" style="display:none">MARELEC</span>
             </div>
-            <p class="footer-tagline">Instalaciones eléctricas · Fotovoltaica · Cargadores EV · Automatización</p>
+            <p class="footer-tagline">Instalaciones eléctricas · Fotovoltaica · Cargadores EV · Edificios inteligentes</p>
         </div>
         <ul class="footer-links">
             <li><a href="#servicios">Servicios</a></li>
             <li><a href="#cargadores">Cargadores EV</a></li>
-            <li><a href="#automatizacion">Automatización</a></li>
+            <li><a href="#automatizacion">Edificios inteligentes</a></li>
+            <li><a href="#showroom">Showroom</a></li>
             <li><a href="#contacto">Contacto</a></li>
         </ul>
     </div>
     <div class="footer-bottom">
         <p>© 2026 Marelec · Todos los derechos reservados</p>
-        <a href="mailto:info@marelec.net" style="color:rgba(255,255,255,0.2);text-decoration:none;font-size:0.78rem;">info@marelec.net</a>
+        <a href="mailto:info@marelec.net" style="color:rgba(255,255,255,0.18);text-decoration:none;font-size:0.76rem;">info@marelec.net</a>
     </div>
 </footer>
 
