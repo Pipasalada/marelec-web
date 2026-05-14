@@ -11,232 +11,325 @@
         :root {
             --azul: #1a3a8f;
             --azul-claro: #2a52c9;
-            --negro: #111111;
+            --azul-bright: #4a7fff;
+            --negro: #0a0a0a;
             --gris: #f4f6fb;
             --texto: #333;
         }
+
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             color: var(--texto);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         /* NAV */
         nav {
             position: fixed;
             top: 0; left: 0; right: 0;
-            background: rgba(255,255,255,0.97);
-            backdrop-filter: blur(10px);
+            background: rgba(5, 10, 30, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 0 6%;
-            height: 70px;
-            box-shadow: 0 1px 20px rgba(0,0,0,0.08);
+            height: 72px;
             z-index: 1000;
-        }
-
-        .logo-nav {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
         }
 
         .logo-nav img {
-            height: 44px;
+            height: 48px;
+            filter: brightness(1.1);
         }
 
         .nav-links {
             display: flex;
-            gap: 32px;
+            gap: 36px;
             list-style: none;
+            align-items: center;
         }
 
         .nav-links a {
             text-decoration: none;
-            color: var(--negro);
-            font-size: 0.9rem;
+            color: rgba(255,255,255,0.75);
+            font-size: 0.88rem;
             font-weight: 500;
+            letter-spacing: 0.02em;
             transition: color 0.2s;
         }
 
-        .nav-links a:hover { color: var(--azul); }
+        .nav-links a:hover { color: white; }
 
         .nav-cta {
-            background: var(--azul);
+            background: var(--azul-claro) !important;
             color: white !important;
-            padding: 8px 20px;
-            border-radius: 6px;
-            transition: background 0.2s !important;
+            padding: 9px 22px !important;
+            border-radius: 7px;
+            font-weight: 600 !important;
+            transition: background 0.2s, transform 0.2s !important;
         }
 
-        .nav-cta:hover { background: var(--azul-claro) !important; color: white !important; }
+        .nav-cta:hover {
+            background: var(--azul-bright) !important;
+            transform: translateY(-1px);
+        }
 
         /* HERO */
         .hero {
             min-height: 100vh;
-            background: linear-gradient(135deg, #0d1f5c 0%, #1a3a8f 50%, #0a0a0a 100%);
+            background:
+                radial-gradient(ellipse 80% 60% at 70% 40%, rgba(42,82,201,0.25) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 20% 70%, rgba(26,58,143,0.2) 0%, transparent 60%),
+                linear-gradient(160deg, #050a1e 0%, #0a1535 40%, #060c20 100%);
             display: flex;
             align-items: center;
-            padding: 100px 6% 60px;
+            padding: 100px 6% 80px;
             position: relative;
             overflow: hidden;
         }
 
+        /* Animated grid lines */
         .hero::before {
             content: '';
             position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(42,82,201,0.3) 0%, transparent 70%);
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(74,127,255,0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(74,127,255,0.06) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+        }
+
+        /* Glow orbs */
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 15%;
+            right: 8%;
+            width: 420px;
+            height: 420px;
+            background: radial-gradient(circle, rgba(74,127,255,0.18) 0%, transparent 70%);
             border-radius: 50%;
+            pointer-events: none;
         }
 
         .hero-content {
-            max-width: 650px;
+            max-width: 680px;
             position: relative;
             z-index: 1;
         }
 
         .hero-badge {
-            display: inline-block;
-            background: rgba(255,255,255,0.15);
-            border: 1px solid rgba(255,255,255,0.3);
-            color: white;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            letter-spacing: 0.05em;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(74,127,255,0.12);
+            border: 1px solid rgba(74,127,255,0.35);
+            color: #a0c0ff;
+            padding: 7px 18px;
+            border-radius: 30px;
+            font-size: 0.78rem;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
-            margin-bottom: 24px;
+            font-weight: 600;
+            margin-bottom: 28px;
         }
+
+        .hero-badge::before { content: '⚡'; font-size: 0.9rem; }
 
         .hero h1 {
-            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-size: clamp(2.2rem, 4.5vw, 3.8rem);
             color: white;
-            font-weight: 700;
-            line-height: 1.15;
-            margin-bottom: 20px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 22px;
+            letter-spacing: -0.02em;
         }
 
-        .hero h1 span { color: #7eb3ff; }
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, #7eb3ff, #4a7fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero h1 .line2 {
+            display: block;
+            color: rgba(255,255,255,0.55);
+            font-size: 0.72em;
+            font-weight: 400;
+            margin-top: 6px;
+            letter-spacing: 0;
+        }
 
         .hero p {
-            font-size: 1.1rem;
-            color: rgba(255,255,255,0.8);
-            margin-bottom: 36px;
+            font-size: 1.05rem;
+            color: rgba(255,255,255,0.65);
+            margin-bottom: 40px;
             max-width: 520px;
+            line-height: 1.7;
         }
 
         .hero-buttons {
             display: flex;
             gap: 16px;
             flex-wrap: wrap;
+            margin-bottom: 56px;
         }
 
         .btn-primary {
-            background: white;
-            color: var(--azul);
-            padding: 14px 28px;
-            border-radius: 8px;
+            background: linear-gradient(135deg, var(--azul-claro), var(--azul-bright));
+            color: white;
+            padding: 15px 32px;
+            border-radius: 9px;
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 0.95rem;
             transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 20px rgba(74,127,255,0.35);
         }
 
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 35px rgba(74,127,255,0.5);
         }
 
         .btn-secondary {
-            border: 2px solid rgba(255,255,255,0.5);
-            color: white;
-            padding: 14px 28px;
-            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.25);
+            color: rgba(255,255,255,0.85);
+            padding: 15px 32px;
+            border-radius: 9px;
             text-decoration: none;
             font-weight: 600;
             font-size: 0.95rem;
-            transition: border-color 0.2s, background 0.2s;
+            transition: border-color 0.2s, background 0.2s, transform 0.2s;
+            backdrop-filter: blur(4px);
         }
 
         .btn-secondary:hover {
-            border-color: white;
-            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.6);
+            background: rgba(255,255,255,0.07);
+            transform: translateY(-2px);
+        }
+
+        /* Trust indicators */
+        .hero-trust {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.82rem;
+        }
+
+        .trust-item .dot {
+            width: 6px;
+            height: 6px;
+            background: #4a7fff;
+            border-radius: 50%;
+            flex-shrink: 0;
         }
 
         /* STATS BAR */
         .stats-bar {
-            background: var(--negro);
-            padding: 30px 6%;
+            background: #08102a;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            padding: 36px 6%;
             display: flex;
             justify-content: center;
-            gap: 60px;
-            flex-wrap: wrap;
+            gap: 0;
         }
 
         .stat {
             text-align: center;
             color: white;
+            padding: 0 48px;
+            position: relative;
+        }
+
+        .stat:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 10%;
+            height: 80%;
+            width: 1px;
+            background: rgba(255,255,255,0.08);
         }
 
         .stat-number {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #7eb3ff;
+            font-size: 2.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #7eb3ff, #4a7fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
         }
 
         .stat-label {
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.6);
-            margin-top: 4px;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.45);
+            margin-top: 6px;
+            letter-spacing: 0.03em;
         }
 
         /* SERVICIOS */
         .section {
-            padding: 80px 6%;
+            padding: 96px 6%;
         }
 
         .section-header {
             text-align: center;
-            margin-bottom: 56px;
+            margin-bottom: 64px;
         }
 
         .section-tag {
             display: inline-block;
             background: rgba(26,58,143,0.1);
-            color: var(--azul);
-            padding: 5px 14px;
+            color: var(--azul-claro);
+            padding: 5px 16px;
             border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
+            font-size: 0.78rem;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.08em;
             margin-bottom: 14px;
+            border: 1px solid rgba(26,58,143,0.2);
         }
 
         .section-header h2 {
-            font-size: clamp(1.6rem, 3vw, 2.4rem);
-            color: var(--negro);
-            font-weight: 700;
+            font-size: clamp(1.8rem, 3vw, 2.6rem);
+            color: #0d1535;
+            font-weight: 800;
+            letter-spacing: -0.02em;
         }
 
         .section-header p {
-            color: #666;
-            margin-top: 12px;
-            max-width: 540px;
+            color: #777;
+            margin-top: 14px;
+            max-width: 520px;
             margin-left: auto;
             margin-right: auto;
+            font-size: 1rem;
         }
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -244,172 +337,267 @@
         .service-card {
             background: white;
             border: 1px solid #e8ecf4;
-            border-radius: 16px;
-            padding: 32px 28px;
-            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+            border-radius: 18px;
+            padding: 36px 30px;
+            transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--azul), var(--azul-bright));
+            opacity: 0;
+            transition: opacity 0.25s;
         }
 
         .service-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(26,58,143,0.12);
-            border-color: var(--azul);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(26,58,143,0.12);
+            border-color: rgba(26,58,143,0.15);
         }
 
+        .service-card:hover::before { opacity: 1; }
+
         .service-icon {
-            font-size: 2.2rem;
-            margin-bottom: 18px;
+            font-size: 2.4rem;
+            margin-bottom: 20px;
+            display: block;
         }
 
         .service-card h3 {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 700;
-            color: var(--negro);
+            color: #0d1535;
             margin-bottom: 10px;
         }
 
         .service-card p {
-            font-size: 0.9rem;
-            color: #666;
-            line-height: 1.6;
+            font-size: 0.88rem;
+            color: #777;
+            line-height: 1.65;
         }
 
         /* CARGADORES HIGHLIGHT */
         .highlight-section {
-            background: var(--gris);
+            background: linear-gradient(180deg, #f4f6fb 0%, #eef1f9 100%);
         }
 
         .highlight-inner {
-            max-width: 1200px;
+            max-width: 1160px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 60px;
+            gap: 72px;
             align-items: center;
         }
 
+        .highlight-text .section-tag { text-align: left; }
+
         .highlight-text h2 {
-            font-size: clamp(1.6rem, 3vw, 2.2rem);
-            color: var(--negro);
-            font-weight: 700;
+            font-size: clamp(1.7rem, 3vw, 2.4rem);
+            color: #0d1535;
+            font-weight: 800;
             margin-bottom: 16px;
+            letter-spacing: -0.02em;
         }
 
         .highlight-text p {
-            color: #555;
-            margin-bottom: 24px;
-            font-size: 1rem;
+            color: #666;
+            margin-bottom: 28px;
+            font-size: 0.98rem;
+            line-height: 1.7;
         }
 
         .highlight-list {
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin-bottom: 32px;
+            gap: 14px;
+            margin-bottom: 36px;
         }
 
         .highlight-list li {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 0.95rem;
-            color: var(--texto);
+            gap: 12px;
+            font-size: 0.93rem;
+            color: #444;
         }
 
-        .highlight-list li::before {
-            content: '✓';
-            background: var(--azul);
+        .check {
+            background: linear-gradient(135deg, var(--azul), var(--azul-bright));
             color: white;
-            width: 22px;
-            height: 22px;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 0.7rem;
-            font-weight: 700;
+            font-weight: 800;
             flex-shrink: 0;
         }
 
         .highlight-visual {
-            background: linear-gradient(135deg, var(--azul), #0d1f5c);
-            border-radius: 20px;
-            padding: 50px;
+            background: linear-gradient(145deg, #0a1535 0%, #1a3a8f 60%, #0d2060 100%);
+            border-radius: 24px;
+            padding: 56px 44px;
             text-align: center;
             color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(26,58,143,0.35);
         }
 
-        .highlight-visual .big-icon { font-size: 5rem; margin-bottom: 20px; }
-        .highlight-visual h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 10px; }
-        .highlight-visual p { opacity: 0.8; font-size: 0.9rem; }
+        .highlight-visual::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            left: -20%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 60% 30%, rgba(74,127,255,0.2) 0%, transparent 50%);
+        }
+
+        .highlight-visual .big-icon {
+            font-size: 5.5rem;
+            margin-bottom: 20px;
+            display: block;
+            position: relative;
+        }
+
+        .highlight-visual h3 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .highlight-visual p {
+            opacity: 0.7;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        .highlight-visual .btn-ev {
+            display: inline-block;
+            margin-top: 28px;
+            background: white;
+            color: var(--azul);
+            padding: 13px 28px;
+            border-radius: 9px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+        }
+
+        .highlight-visual .btn-ev:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
 
         /* CONTACTO */
         .contact-section {
-            background: linear-gradient(135deg, #0d1f5c, #1a3a8f);
-            padding: 80px 6%;
+            background:
+                radial-gradient(ellipse 70% 60% at 30% 50%, rgba(42,82,201,0.2) 0%, transparent 60%),
+                linear-gradient(135deg, #060c20, #0d1a45, #060c20);
+            padding: 100px 6%;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(74,127,255,0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(74,127,255,0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
         }
 
         .contact-section h2 {
-            font-size: clamp(1.6rem, 3vw, 2.4rem);
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
             color: white;
-            font-weight: 700;
+            font-weight: 800;
             margin-bottom: 14px;
+            letter-spacing: -0.02em;
+            position: relative;
         }
 
-        .contact-section p {
-            color: rgba(255,255,255,0.75);
+        .contact-section > p {
+            color: rgba(255,255,255,0.6);
             font-size: 1rem;
-            margin-bottom: 40px;
-            max-width: 500px;
+            margin-bottom: 52px;
+            max-width: 480px;
             margin-left: auto;
             margin-right: auto;
+            position: relative;
         }
 
         .contact-grid {
             display: flex;
             justify-content: center;
-            gap: 24px;
+            gap: 20px;
             flex-wrap: wrap;
-            margin-bottom: 40px;
+            margin-bottom: 48px;
+            position: relative;
         }
 
         .contact-item {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 12px;
-            padding: 20px 28px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 16px;
+            padding: 28px 36px;
             color: white;
             text-decoration: none;
-            transition: background 0.2s;
-            min-width: 180px;
+            transition: background 0.2s, transform 0.2s, border-color 0.2s;
+            min-width: 190px;
+            backdrop-filter: blur(8px);
         }
 
-        .contact-item:hover { background: rgba(255,255,255,0.2); }
-        .contact-item .c-icon { font-size: 1.5rem; margin-bottom: 8px; }
-        .contact-item .c-label { font-size: 0.75rem; opacity: 0.7; text-transform: uppercase; letter-spacing: 0.05em; }
-        .contact-item .c-value { font-size: 0.95rem; font-weight: 600; margin-top: 4px; }
+        .contact-item:hover {
+            background: rgba(255,255,255,0.12);
+            border-color: rgba(74,127,255,0.4);
+            transform: translateY(-3px);
+        }
+
+        .contact-item .c-icon { font-size: 1.8rem; margin-bottom: 10px; display: block; }
+        .contact-item .c-label { font-size: 0.72rem; opacity: 0.5; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+        .contact-item .c-value { font-size: 0.98rem; font-weight: 700; margin-top: 5px; }
 
         /* FOOTER */
         footer {
-            background: var(--negro);
-            padding: 30px 6%;
+            background: #040810;
+            padding: 28px 6%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 16px;
+            border-top: 1px solid rgba(255,255,255,0.05);
         }
 
-        footer p { color: rgba(255,255,255,0.4); font-size: 0.85rem; }
-        footer a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 0.85rem; }
-        footer a:hover { color: white; }
+        .footer-logo img { height: 32px; opacity: 0.7; }
+        .footer-logo span { color: rgba(255,255,255,0.3); font-size: 0.8rem; margin-left: 16px; }
+        footer a { color: rgba(255,255,255,0.35); text-decoration: none; font-size: 0.82rem; }
+        footer a:hover { color: rgba(255,255,255,0.7); }
 
         /* RESPONSIVE */
         @media (max-width: 768px) {
             .nav-links { display: none; }
-            .highlight-inner { grid-template-columns: 1fr; }
-            .stats-bar { gap: 30px; }
+            .highlight-inner { grid-template-columns: 1fr; gap: 40px; }
+            .stats-bar { gap: 0; flex-wrap: wrap; }
+            .stat { padding: 16px 24px; }
+            .stat:not(:last-child)::after { display: none; }
             .hero { padding-top: 90px; }
         }
     </style>
@@ -419,12 +607,12 @@
 <!-- NAV -->
 <nav>
     <div class="logo-nav">
-        <!-- Sustituye src por la ruta real de tu logo cuando lo tengas en PNG -->
-        <span style="font-size:1.5rem;font-weight:800;color:#1a3a8f;letter-spacing:-0.02em;">MARELEC</span>
+        <img src="logo.png" alt="Marelec" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <span style="display:none; font-size:1.4rem; font-weight:800; color:white; letter-spacing:0.05em;">MARELEC</span>
     </div>
     <ul class="nav-links">
         <li><a href="#servicios">Servicios</a></li>
-        <li><a href="#cargadores">Cargadores VE</a></li>
+        <li><a href="#cargadores">Cargadores EV</a></li>
         <li><a href="#contacto">Contacto</a></li>
         <li><a href="#contacto" class="nav-cta">Solicitar presupuesto</a></li>
     </ul>
@@ -433,12 +621,21 @@
 <!-- HERO -->
 <section class="hero">
     <div class="hero-content">
-        <div class="hero-badge">⚡ Instaladores certificados</div>
-        <h1>Energía inteligente para tu <span>hogar y empresa</span></h1>
-        <p>Instalaciones eléctricas, energía fotovoltaica, cargadores para vehículos eléctricos y automatización inteligente. Todo en una empresa.</p>
+        <div class="hero-badge">Instaladores certificados · España</div>
+        <h1>
+            Energía inteligente,<br>
+            <span class="highlight">instalaciones que duran.</span>
+            <span class="line2">Electricidad · Fotovoltaica · Movilidad eléctrica · Automatización</span>
+        </h1>
+        <p>De la instalación convencional a la automatización con inteligencia artificial. Marelec es tu empresa de confianza para proyectos eléctricos y energéticos completos.</p>
         <div class="hero-buttons">
-            <a href="#contacto" class="btn-primary">Solicitar presupuesto</a>
-            <a href="#servicios" class="btn-secondary">Ver servicios</a>
+            <a href="#contacto" class="btn-primary">Solicitar presupuesto gratuito</a>
+            <a href="#servicios" class="btn-secondary">Ver servicios →</a>
+        </div>
+        <div class="hero-trust">
+            <div class="trust-item"><span class="dot"></span>Proyectos llave en mano</div>
+            <div class="trust-item"><span class="dot"></span>Gestión de subvenciones</div>
+            <div class="trust-item"><span class="dot"></span>Garantía total</div>
         </div>
     </div>
 </section>
@@ -472,32 +669,32 @@
     </div>
     <div class="services-grid">
         <div class="service-card">
-            <div class="service-icon">🔌</div>
+            <span class="service-icon">🔌</span>
             <h3>Instalaciones Eléctricas</h3>
-            <p>Instalaciones eléctricas generales para viviendas, locales comerciales e industria. Proyectos llave en mano con todas las homologaciones.</p>
+            <p>Instalaciones generales para viviendas, locales comerciales e industria. Proyectos llave en mano con todas las homologaciones.</p>
         </div>
         <div class="service-card">
-            <div class="service-icon">☀️</div>
+            <span class="service-icon">☀️</span>
             <h3>Energía Fotovoltaica</h3>
             <p>Diseño e instalación de sistemas de autoconsumo solar. Gestión de subvenciones y trámites administrativos incluidos.</p>
         </div>
         <div class="service-card">
-            <div class="service-icon">🚗</div>
+            <span class="service-icon">🚗</span>
             <h3>Cargadores Vehículo Eléctrico</h3>
             <p>Instalación de puntos de recarga domésticos y profesionales. Instaladores certificados para las principales marcas del mercado.</p>
         </div>
         <div class="service-card">
-            <div class="service-icon">🏠</div>
+            <span class="service-icon">🏠</span>
             <h3>Domótica e Automatización</h3>
-            <p>Sistemas inteligentes con Home Assistant, Loxone y soluciones a medida. Control total de tu hogar o negocio desde cualquier dispositivo.</p>
+            <p>Sistemas inteligentes con Home Assistant y Loxone. Control total de tu hogar o negocio desde cualquier dispositivo.</p>
         </div>
         <div class="service-card">
-            <div class="service-icon">🤖</div>
+            <span class="service-icon">🤖</span>
             <h3>Integración con IA</h3>
             <p>Automatización avanzada con inteligencia artificial para optimizar el consumo energético y la gestión de instalaciones.</p>
         </div>
         <div class="service-card">
-            <div class="service-icon">🔧</div>
+            <span class="service-icon">🔧</span>
             <h3>Mantenimiento</h3>
             <p>Contratos de mantenimiento preventivo y correctivo. Respuesta rápida ante cualquier incidencia eléctrica o de automatización.</p>
         </div>
@@ -509,21 +706,22 @@
     <div class="highlight-inner">
         <div class="highlight-text">
             <div class="section-tag">Movilidad eléctrica</div>
-            <h2>Instala tu cargador con garantías</h2>
-            <p>Somos instaladores especializados en puntos de recarga para vehículo eléctrico, tanto para particulares como para empresas y flotas.</p>
+            <h2>Instala tu cargador con todas las garantías</h2>
+            <p>Somos especialistas en puntos de recarga para vehículo eléctrico. Instalamos en garajes privados, comunidades de vecinos y empresas con flotas eléctricas.</p>
             <ul class="highlight-list">
-                <li>Instalación en garaje privado, comunidad o empresa</li>
-                <li>Compatible con todas las marcas (Wallbox, ABB, Schneider…)</li>
-                <li>Gestión de subvenciones Plan MOVES</li>
-                <li>Certificación y legalización incluida</li>
-                <li>Mantenimiento y soporte post-instalación</li>
+                <li><span class="check">✓</span> Instalación en garaje privado, comunidad o empresa</li>
+                <li><span class="check">✓</span> Compatible con todas las marcas (Wallbox, ABB, Schneider…)</li>
+                <li><span class="check">✓</span> Gestión de subvenciones Plan MOVES</li>
+                <li><span class="check">✓</span> Certificación y legalización incluida</li>
+                <li><span class="check">✓</span> Mantenimiento y soporte post-instalación</li>
             </ul>
-            <a href="#contacto" class="btn-primary" style="display:inline-block;background:var(--azul);color:white;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:600;">Solicitar instalación</a>
+            <a href="#contacto" class="btn-primary">Solicitar instalación</a>
         </div>
         <div class="highlight-visual">
-            <div class="big-icon">⚡</div>
+            <span class="big-icon">⚡</span>
             <h3>¿Tienes coche eléctrico?</h3>
-            <p>Carga en casa de forma segura, rápida y con la instalación legalizada. Te asesoramos sin compromiso.</p>
+            <p>Carga en casa de forma segura, rápida y con la instalación completamente legalizada. Te asesoramos sin compromiso.</p>
+            <a href="#contacto" class="btn-ev">Pedir asesoramiento gratis</a>
         </div>
     </div>
 </section>
@@ -534,27 +732,25 @@
     <p>Solicita un presupuesto sin compromiso. Respondemos en menos de 24 horas.</p>
     <div class="contact-grid">
         <a href="mailto:info@marelec.net" class="contact-item">
-            <div class="c-icon">✉️</div>
+            <span class="c-icon">✉️</span>
             <div class="c-label">Email</div>
             <div class="c-value">info@marelec.net</div>
         </a>
-        <a href="tel:+34000000000" class="contact-item">
-            <div class="c-icon">📞</div>
+        <a href="tel:+34637077878" class="contact-item">
+            <span class="c-icon">📞</span>
             <div class="c-label">Teléfono</div>
-            <div class="c-value">+34 000 000 000</div>
+            <div class="c-value">+34 637 07 78 78</div>
         </a>
-        <div class="contact-item">
-            <div class="c-icon">📍</div>
-            <div class="c-label">Zona de servicio</div>
-            <div class="c-value">Galicia · España</div>
-        </div>
     </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-    <p>© 2026 Marelec · Todos los derechos reservados</p>
-    <p><a href="mailto:info@marelec.net">info@marelec.net</a></p>
+    <div class="footer-logo">
+        <img src="logo.png" alt="Marelec" onerror="this.style.display='none'">
+        <span>© 2026 Marelec · Todos los derechos reservados</span>
+    </div>
+    <a href="mailto:info@marelec.net">info@marelec.net</a>
 </footer>
 
 </body>
